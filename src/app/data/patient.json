@@ -4,28 +4,133 @@
             "roomNumber": "IH-703",
             "lastName": "Dela Cruz",
             "givenName": "Miguel",
-            "middleName": "Santos",
+            "middleName": "Dalos",
             "age": 67,
             "sex": "M",
-            "patientNumber": 663123
+            "patientNumber": 663123,
+            "updated_at": "2024-03-24T08:15:00Z",
+            "updated_by": "A2 Benner",
+            "datetime_admitted": "2024-02-24T08:15:00Z",
+            "religion": "RC",
+            "doctor": "Dr. Pink, Pastel, Peony",
+            "chiefComplaint": "Dyspnea",
+            "diagnosis": "HAP vs  Congestion  2* to HF, Hematoma on the lower extremities",
+            "diet": "LS L CHOL",
+            "operation": "s/p  IJ Cath R a10/12",
+            "activity": "CBR w/o BPRs",
+            "allergies": "NA",
+            "weightAndHeight": "1kg1cm",
+            "bloodType": "O+",
+            "phic":true, 
+            "others": "",
+            "dateOfBirth": "2002-04-12",
+            "diagnosticTest": [
+                {
+                    "1": "Secure and transfuse 4 U of Platelet Concentrate",
+                    "2": "Bun, Crea in AM",
+                    "3": "Refer to Hema of choice if okay with Dr. Pink",
+                    "4": "FF-UP culture result and relay once available",
+                    "5": "CXR in AM"
+                }
+            ],
+            "mainMedications": [
+                {
+                    "1":"Hydrocortisone 100mg IV q 8",
+                    "2":"KCL 1 tab TID x 9 days",
+                    "3":"Spironolactone 25 mg 1/2 tab OD",
+                    "4":"Atorvastatin 40 mg 1/2 tab OD",
+                    "5":"Pantoprazole 40 mg IV q 12"
+                }
+            ],
+            "ivFluidBloodTransMedsIncorporated": [
+                {
+                    "1":"PNSS x 20 cc/hr + 40 meqs",
+                    "2":"drip 40 units in 100 ml NSS to maintain at 0.05 units/min"
+                }
+            ],
+            "prnMedications": [
+                {
+                    "1":"PCT 300 mg IV q 8 PRN for fever",
+                    "2":"TDL + PCT (Algesia) TID PRN for pain"
+                }
+            ],
+            "treatment": [
+                {
+                    "1":"w/ R pacemaker ",
+                    "2":"w/ IFC",
+                    "3":"MVS q 1 & record",
+                    "4":"Strict I & O monitoring q shift & record ",
+                    "5":"Salbutamol neb q 6",
+                    "6":"O2 @ 5 lpm/ FM",
+                    "7":"CBG Monitoring TID"
+                }
+            ]
         },
         {
             "roomNumber": "IH-704",
-            "lastName": "Santos",
-            "givenName": "Maria Josefa",
-            "middleName": "Nunez",
-            "age": 33,
-            "sex": "F",
-            "patientNumber": 123456
-        },
-        {
-            "roomNumber": "IH-705",
-            "lastName": "Rizal",
-            "givenName": "Jose",
-            "middleName": "Alonzo",
-            "age": 28,
+            "lastName": "Ramirez",
+            "givenName": "Marko",
+            "middleName": "Sarmiento",
+            "age": 67,
             "sex": "M",
-            "patientNumber": 653421
+            "patientNumber": 663124,
+            "updated_at": "2024-032-24T08:15:00Z",
+            "updated_by": "A2 Benner",
+            "datetime_admitted": "2024-03-24T08:15:00Z",
+            "religion": "RC",
+            "doctor": "Dr. Pink, Pastel",
+            "chiefComplaint": "Dyspnea",
+            "diagnosis": "HAP vs  Congestion  2* to HF, Hematoma on the lower extremities",
+            "diet": "LS L CHOL",
+            "operation": "s/p  IJ Cath R a10/12",
+            "activity": "CBR w/o BPRs",
+            "allergies": "NA",
+            "weightAndHeight": "1kg1cm",
+            "bloodType": "O+",
+            "phic":true, 
+            "others": "",
+            "dateOfBirth": "2002-04-12",
+            "diagnosticTest": [
+                {
+                    "1": "Secure and transfuse 4 U of Platelet Concentrate",
+                    "2": "Bun, Crea in AM",
+                    "3": "Refer to Hema of choice if okay with Dr. Pink",
+                    "4": "FF-UP culture result and relay once available",
+                    "5": "CXR in AM"
+                }
+            ],
+            "mainMedications": [
+                {
+                    "1":"Hydrocortisone 100mg IV q 8",
+                    "2":"KCL 1 tab TID x 9 days",
+                    "3":"Spironolactone 25 mg 1/2 tab OD",
+                    "4":"Atorvastatin 40 mg 1/2 tab OD",
+                    "5":"Pantoprazole 40 mg IV q 12"
+                }
+            ],
+            "ivFluidBloodTransMedsIncorporated": [
+                {
+                    "1":"PNSS x 20 cc/hr + 40 meqs",
+                    "2":"drip 40 units in 100 ml NSS to maintain at 0.05 units/min"
+                }
+            ],
+            "prnMedications": [
+                {
+                    "1":"PCT 300 mg IV q 8 PRN for fever",
+                    "2":"TDL + PCT (Algesia) TID PRN for pain"
+                }
+            ],
+            "treatment": [
+                {
+                    "1":"w/ R pacemaker ",
+                    "2":"w/ IFC",
+                    "3":"MVS q 1 & record",
+                    "4":"Strict I & O monitoring q shift & record ",
+                    "5":"Salbutamol neb q 6",
+                    "6":"O2 @ 5 lpm/ FM",
+                    "7":"CBG Monitoring TID"
+                }
+            ]
         }
     ]
 }

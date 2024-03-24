@@ -18,37 +18,18 @@ const WardPage: React.FC = () => {
     const ward = searchParams.get('ward');
     ward?.toString()
 
-    const samplePatients: Patient[] = [
-      {
-        roomNumber: 101,
-        lastName: "Doe",
-        givenName: "John",
-        middleName: "James",
-        age: 35,
-        sex: "Male",
-        patientNumber: 12345,
-        diagnosis: 'highblood'
-      },
-      {
-        roomNumber: 102,
-        lastName: "Ulep",
-        givenName: "Alexis Nicole",
-        middleName: "Damayo",
-        age: 35,
-        sex: "Female",
-        patientNumber: 12346,
-        diagnosis: 'highblood'
-      }
-    ]
-
     useEffect(() => {
-      (async() => {
-        const res = await PatientData()
-        const patientData: Patient[] = res.patients;
-        setPatients(patientData)
-      })
-      setIsLoading(false);
-    }, [patients]);
+      const fetchData = async () => {
+        try {
+          const res = await PatientData()
+          setPatients(res.patients)
+          setIsLoading(false)
+        } catch (error) {
+          console.error("error fetching data", error)
+        }
+      }
+      fetchData()
+    },[])
 
     const handleHome = () => {
         router.push('/homePage')
