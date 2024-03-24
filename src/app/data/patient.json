@@ -1,31 +1,31 @@
 {
     "patients": [
         {
-            "RoomNumber": "IH-703",
-            "LastName": "Dela Cruz",
-            "GivenName": "Miguel",
-            "MiddleName": "Santos",
-            "Age": 67,
-            "Sex": "M",
-            "PatientNumber": 663123
+            "roomNumber": "IH-703",
+            "lastName": "Dela Cruz",
+            "givenName": "Miguel",
+            "middleName": "Santos",
+            "age": 67,
+            "sex": "M",
+            "patientNumber": 663123
         },
         {
-            "RoomNumber": "IH-704",
-            "LastName": "Santos",
-            "GivenName": "Maria Josefa",
-            "MiddleName": "Nunez",
-            "Age": 33,
-            "Sex": "F",
-            "PatientNumber": 123456
+            "roomNumber": "IH-704",
+            "lastName": "Santos",
+            "givenName": "Maria Josefa",
+            "middleName": "Nunez",
+            "age": 33,
+            "sex": "F",
+            "patientNumber": 123456
         },
         {
-            "RoomNumber": "IH-705",
-            "LastName": "Rizal",
-            "GivenName": "Jose",
-            "MiddleName": "Alonzo",
-            "Age": 28,
-            "Sex": "M",
-            "PatientNumber": 653421
+            "roomNumber": "IH-705",
+            "lastName": "Rizal",
+            "givenName": "Jose",
+            "middleName": "Alonzo",
+            "age": 28,
+            "sex": "M",
+            "patientNumber": 653421
         }
     ]
 }

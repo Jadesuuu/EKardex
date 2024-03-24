@@ -25,7 +25,12 @@ const columns = [
 const Table: React.FC<{ data: Patient[] }> = ({ data }) => {
   return (
     <Box sx={{ height: 650, width: '85.1vw', marginTop: '0.5%', background: 'white'}}>
-      {data.length > 0 && <DataGrid rows={data} columns={columns} getRowId={(row) => row.patientNumber} slots={{toolbar: GridToolbar}} slotProps={{toolbar: {showQuickFilter: true}}}/>}
+      <DataGrid 
+      rows={data} 
+      columns={columns} 
+      getRowId={(row) => row.patientNumber} 
+      slots={{toolbar: GridToolbar}} 
+      slotProps={{toolbar: {showQuickFilter: true}}}/>
     </Box>
   );
 };

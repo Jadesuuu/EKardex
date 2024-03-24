@@ -28,7 +28,6 @@ const HomePage = () => {
   const [isLogoutLoading, setIsLogoutLoading] = useState(false);
   const open = Boolean(anchorEl);
   const openWard = Boolean(anchorWardEl);
-  const [ward, setWard] = useState('');
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

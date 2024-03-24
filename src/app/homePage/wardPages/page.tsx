@@ -6,22 +6,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HouseIcon from '@mui/icons-material/House';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Divider from '@mui/material/Divider';
-import SearchBar from '@/app/components/searchBar';
 import Table from '@/app/components/gridTable';
-
-interface Patient {
-  roomNumber: number;
-  lastName: string;
-  givenName: string;
-  middleName?: string;
-  age: number;
-  sex: string;
-  patientNumber: number;
-  diagnosis: string;
-}
+import {page as PatientData } from '@/app/components/getData'
+import type {Patient} from '@/app/components/getData'
 
 const WardPage: React.FC = () => {
-    const [searchTerm, setSearchTerm] = useState('');
     const [patients, setPatients] = useState<Patient[]>([]);
     const [isLoading, setIsLoading] = useState(true)
     const router = useRouter();
@@ -53,15 +42,13 @@ const WardPage: React.FC = () => {
     ]
 
     useEffect(() => {
-      const storedPatients = localStorage.getItem('patients');
-      if (storedPatients) {
-        setPatients(JSON.parse(storedPatients) as Patient[]);
-      } else {
-        localStorage.setItem('patients', JSON.stringify(samplePatients));
-        setPatients(samplePatients);
-      }
+      (async() => {
+        const res = await PatientData()
+        const patientData: Patient[] = res.patients;
+        setPatients(patientData)
+      })
       setIsLoading(false);
-    }, []);
+    }, [patients]);
 
     const handleHome = () => {
         router.push('/homePage')
@@ -106,7 +93,7 @@ const WardPage: React.FC = () => {
           </Button>
         </div>
         <div className={Styles.table}>
-          <Table data={samplePatients}/>
+          <Table data={patients}/>
         </div>
     </div>
   )
