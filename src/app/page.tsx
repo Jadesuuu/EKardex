@@ -4,22 +4,12 @@ import Styles from './page.module.css';
 import { Alert, AlertTitle, Typography, Button, TextField, Stack, IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
-interface Users{
-  firstname: string;
-  lastname: string;
-  username: string;
-  password: string;
-}
-
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isOpen, setIsOpen] = useState(true);
     const [showError, setShowError] = useState(false);
     const router = useRouter();
-    const firstName = 'A2';
-    const lastName = 'Benner';
     const validUsername = 'test123';
     const validPassword = 'pass123';
 

@@ -1,0 +1,26 @@
+.NewPatient {
+    background-color: #203162;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.formPage {
+    background-color: white;
+    width: 60%;
+    height: 110%;
+}
+.divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.wardHeader {
+    padding-top: 2%;
+}
+.form2 {
+    margin-top: '10px';
+}

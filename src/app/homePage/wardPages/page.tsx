@@ -1,17 +1,29 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Styles from './page.module.css'
-import { IconButton, Typography, Button } from '@mui/material'
+import { IconButton, Typography, Button, Box } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HouseIcon from '@mui/icons-material/House';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Divider from '@mui/material/Divider';
-import Table from '@/app/components/gridTable';
 import {page as PatientData } from '@/app/components/getData'
 import type {Patient} from '@/app/components/getData'
+import { DataGrid, GridToolbar, GridRowSelectionModel } from '@mui/x-data-grid';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
+const columns = [
+  { field: 'roomNumber', headerName: 'ROOM #', width: 150 },
+  { field: 'lastName', headerName: 'LAST NAME', width: 150 },
+  { field: 'givenName', headerName: 'FIRST NAME', width: 200 },
+  { field: 'middleName', headerName: 'MIDDLE NAME', width: 150 },
+  { field: 'age', headerName: 'AGE', width: 110 },
+  { field: 'sex', headerName: 'SEX', width: 110 },
+  { field: 'patientNumber', headerName: 'PATIENT NUMBER', width: 200 },
+];
 
 const WardPage: React.FC = () => {
     const [patients, setPatients] = useState<Patient[]>([]);
+    const [selectedRows, setSelectedRows] = useState<Patient[]>([]);
     const [isLoading, setIsLoading] = useState(true)
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -22,7 +34,8 @@ const WardPage: React.FC = () => {
       const fetchData = async () => {
         try {
           const res = await PatientData()
-          setPatients(res.patients)
+          const filteredPatients = res.patients.filter((patient) => patient.ward === ward)
+          setPatients(filteredPatients)
           setIsLoading(false)
         } catch (error) {
           console.error("error fetching data", error)
@@ -36,8 +49,26 @@ const WardPage: React.FC = () => {
     }
     
     const handleNewPatient = () => {
-      router.push('/homePage/wardPages/patientFormPage')
+      router.push(`/homePage/wardPages/newPatientPage?ward=${ward}`)
     }
+
+    const handlePatientRow = () => {
+      router.push('/homePage/wardPages/kardexHistoryPage')
+    }
+
+    const handleRowDelete = async () => { //next time na to pota
+      if (!selectedRows.length) return; 
+
+      const confirmed = window.confirm(`Are you sure you want to delete ${selectedRows.length} patient(s)?`);
+        if (!confirmed) return;
+
+      const filteredPatients = patients.filter(
+        (patient) => !selectedRows.some((selected) => selected.patientNumber === patient.patientNumber)
+    );
+
+    setPatients(filteredPatients);
+    setSelectedRows([]);
+  };
 
   return (
     <div className={Styles.WardPage}>
@@ -74,7 +105,21 @@ const WardPage: React.FC = () => {
           </Button>
         </div>
         <div className={Styles.table}>
-          <Table data={patients}/>
+          <Box sx={{ height: 650, width: '85.1vw', marginTop: '0.5%', background: 'white'}}>
+            <DataGrid 
+              rows={patients} 
+              columns={columns} 
+              getRowId={(row) => row.patientNumber} 
+              slots={{toolbar: GridToolbar}} 
+              slotProps={{toolbar: {showQuickFilter: true}}}
+              sx={{
+                '& .MuiDataGrid-columnHeader': {
+                  color: '#203162', 
+                  fontWeight: 'bold'
+                },
+              }}
+            />
+          </Box>
         </div>
     </div>
   )

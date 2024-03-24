@@ -1,6 +1,6 @@
 {
     "patients": [
-        {
+        {   "ward": "Medical Ward",
             "roomNumber": "IH-703",
             "lastName": "Dela Cruz",
             "givenName": "Miguel",
@@ -26,52 +26,137 @@
             "dateOfBirth": "2002-04-12",
             "diagnosticTest": [
                 {
-                    "1": "Secure and transfuse 4 U of Platelet Concentrate",
-                    "2": "Bun, Crea in AM",
-                    "3": "Refer to Hema of choice if okay with Dr. Pink",
-                    "4": "FF-UP culture result and relay once available",
-                    "5": "CXR in AM"
+                    "1": {
+                        "test": "Secure and transfuse 4 U of Platelet Concentrate",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "test": "Bun, Crea in AM",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "3": {
+                        "test": "Refer to Hema of choice if okay with Dr. Pink",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "4": {
+                        "test": "FF-UP culture result and relay once available",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "5": {
+                        "test": "CXR in AM",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
                 }
             ],
             "mainMedications": [
                 {
-                    "1":"Hydrocortisone 100mg IV q 8",
-                    "2":"KCL 1 tab TID x 9 days",
-                    "3":"Spironolactone 25 mg 1/2 tab OD",
-                    "4":"Atorvastatin 40 mg 1/2 tab OD",
-                    "5":"Pantoprazole 40 mg IV q 12"
+                    "1": {
+                        "medication": "Hydrocortisone 100mg IV q 8",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "medication": "KCL 1 tab TID x 9 days",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "3": {
+                        "medication": "Spironolactone 25 mg 1/2 tab OD",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "4": {
+                        "medication": "Atorvastatin 40 mg 1/2 tab OD",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "5": {
+                        "medication": "Pantoprazole 40 mg IV q 12",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
                 }
             ],
             "ivFluidBloodTransMedsIncorporated": [
                 {
-                    "1":"PNSS x 20 cc/hr + 40 meqs",
-                    "2":"drip 40 units in 100 ml NSS to maintain at 0.05 units/min"
+                    "1": {
+                        "medication": "PNSS x 20 cc/hr + 40 meqs",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "medication": "drip 40 units in 100 ml NSS to maintain at 0.05 units/min",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
                 }
             ],
             "prnMedications": [
                 {
-                    "1":"PCT 300 mg IV q 8 PRN for fever",
-                    "2":"TDL + PCT (Algesia) TID PRN for pain"
+                    "1": {
+                        "medication": "PCT 300 mg IV q 8 PRN for fever",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "medication": "TDL + PCT (Algesia) TID PRN for pain",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
                 }
             ],
             "treatment": [
                 {
-                    "1":"w/ R pacemaker ",
-                    "2":"w/ IFC",
-                    "3":"MVS q 1 & record",
-                    "4":"Strict I & O monitoring q shift & record ",
-                    "5":"Salbutamol neb q 6",
-                    "6":"O2 @ 5 lpm/ FM",
-                    "7":"CBG Monitoring TID"
+                    "1": {
+                        "treatment": "w/ R pacemaker",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "treatment": "w/ IFC",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "3": {
+                        "treatment": "MVS q 1 & record",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "4": {
+                        "treatment": "Strict I & O monitoring q shift & record",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "5": {
+                        "treatment": "Salbutamol neb q 6",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "6": {
+                        "treatment": "O2 @ 5 lpm/ FM",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "7": {
+                        "treatment": "CBG Monitoring TID",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
                 }
             ]
         },
         {
+            "ward": "Medical Ward",
             "roomNumber": "IH-704",
             "lastName": "Ramirez",
             "givenName": "Marko",
             "middleName": "Sarmiento",
-            "age": 67,
+            "age": 29,
             "sex": "M",
             "patientNumber": 663124,
             "updated_at": "2024-032-24T08:15:00Z",
@@ -92,43 +177,278 @@
             "dateOfBirth": "2002-04-12",
             "diagnosticTest": [
                 {
-                    "1": "Secure and transfuse 4 U of Platelet Concentrate",
-                    "2": "Bun, Crea in AM",
-                    "3": "Refer to Hema of choice if okay with Dr. Pink",
-                    "4": "FF-UP culture result and relay once available",
-                    "5": "CXR in AM"
+                    "1": {
+                        "test": "Secure and transfuse 4 U of Platelet Concentrate",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "test": "Bun, Crea in AM",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "3": {
+                        "test": "Refer to Hema of choice if okay with Dr. Pink",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "4": {
+                        "test": "FF-UP culture result and relay once available",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "5": {
+                        "test": "CXR in AM",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
                 }
             ],
             "mainMedications": [
                 {
-                    "1":"Hydrocortisone 100mg IV q 8",
-                    "2":"KCL 1 tab TID x 9 days",
-                    "3":"Spironolactone 25 mg 1/2 tab OD",
-                    "4":"Atorvastatin 40 mg 1/2 tab OD",
-                    "5":"Pantoprazole 40 mg IV q 12"
+                    "1": {
+                        "medication": "Hydrocortisone 100mg IV q 8",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "medication": "KCL 1 tab TID x 9 days",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "3": {
+                        "medication": "Spironolactone 25 mg 1/2 tab OD",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "4": {
+                        "medication": "Atorvastatin 40 mg 1/2 tab OD",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "5": {
+                        "medication": "Pantoprazole 40 mg IV q 12",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
                 }
             ],
             "ivFluidBloodTransMedsIncorporated": [
                 {
-                    "1":"PNSS x 20 cc/hr + 40 meqs",
-                    "2":"drip 40 units in 100 ml NSS to maintain at 0.05 units/min"
+                    "1": {
+                        "medication": "PNSS x 20 cc/hr + 40 meqs",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "medication": "drip 40 units in 100 ml NSS to maintain at 0.05 units/min",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
                 }
             ],
             "prnMedications": [
                 {
-                    "1":"PCT 300 mg IV q 8 PRN for fever",
-                    "2":"TDL + PCT (Algesia) TID PRN for pain"
+                    "1": {
+                        "medication": "PCT 300 mg IV q 8 PRN for fever",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "medication": "TDL + PCT (Algesia) TID PRN for pain",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
                 }
             ],
             "treatment": [
                 {
-                    "1":"w/ R pacemaker ",
-                    "2":"w/ IFC",
-                    "3":"MVS q 1 & record",
-                    "4":"Strict I & O monitoring q shift & record ",
-                    "5":"Salbutamol neb q 6",
-                    "6":"O2 @ 5 lpm/ FM",
-                    "7":"CBG Monitoring TID"
+                    "1": {
+                        "treatment": "w/ R pacemaker",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "treatment": "w/ IFC",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "3": {
+                        "treatment": "MVS q 1 & record",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "4": {
+                        "treatment": "Strict I & O monitoring q shift & record",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "5": {
+                        "treatment": "Salbutamol neb q 6",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "6": {
+                        "treatment": "O2 @ 5 lpm/ FM",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "7": {
+                        "treatment": "CBG Monitoring TID",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
+                }
+            ]
+        },
+        {
+            "ward": "Surgical Ward",
+            "roomNumber": "IH-705",
+            "lastName": "Picasso",
+            "givenName": "Jose Alonzo Picasso Saragosa",
+            "middleName": "Pancho",
+            "age": 23,
+            "sex": "F",
+            "patientNumber": 663126,
+            "updated_at": "2024-032-24T08:15:00Z",
+            "updated_by": "A2 Benner",
+            "datetime_admitted": "2024-03-24T08:15:00Z",
+            "religion": "RC",
+            "doctor": "Dr. Pink, Pastel",
+            "chiefComplaint": "Dyspnea",
+            "diagnosis": "HAP vs  Congestion  2* to HF, Hematoma on the lower extremities",
+            "diet": "LS L CHOL",
+            "operation": "s/p  IJ Cath R a10/12",
+            "activity": "CBR w/o BPRs",
+            "allergies": "NA",
+            "weightAndHeight": "1kg1cm",
+            "bloodType": "O+",
+            "phic":true, 
+            "others": "",
+            "dateOfBirth": "2002-04-12",
+            "diagnosticTest": [
+                {
+                    "1": {
+                        "test": "Secure and transfuse 4 U of Platelet Concentrate",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "test": "Bun, Crea in AM",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "3": {
+                        "test": "Refer to Hema of choice if okay with Dr. Pink",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "4": {
+                        "test": "FF-UP culture result and relay once available",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "5": {
+                        "test": "CXR in AM",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
+                }
+            ],
+            "mainMedications": [
+                {
+                    "1": {
+                        "medication": "Hydrocortisone 100mg IV q 8",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "medication": "KCL 1 tab TID x 9 days",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "3": {
+                        "medication": "Spironolactone 25 mg 1/2 tab OD",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "4": {
+                        "medication": "Atorvastatin 40 mg 1/2 tab OD",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "5": {
+                        "medication": "Pantoprazole 40 mg IV q 12",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
+                }
+            ],
+            "ivFluidBloodTransMedsIncorporated": [
+                {
+                    "1": {
+                        "medication": "PNSS x 20 cc/hr + 40 meqs",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "medication": "drip 40 units in 100 ml NSS to maintain at 0.05 units/min",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
+                }
+            ],
+            "prnMedications": [
+                {
+                    "1": {
+                        "medication": "PCT 300 mg IV q 8 PRN for fever",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "medication": "TDL + PCT (Algesia) TID PRN for pain",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
+                }
+            ],
+            "treatment": [
+                {
+                    "1": {
+                        "treatment": "w/ R pacemaker",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "2": {
+                        "treatment": "w/ IFC",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "3": {
+                        "treatment": "MVS q 1 & record",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "4": {
+                        "treatment": "Strict I & O monitoring q shift & record",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "5": {
+                        "treatment": "Salbutamol neb q 6",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "6": {
+                        "treatment": "O2 @ 5 lpm/ FM",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    },
+                    "7": {
+                        "treatment": "CBG Monitoring TID",
+                        "date": "2024-03-24",
+                        "date_done": "2024-03-25"
+                    }
                 }
             ]
         }

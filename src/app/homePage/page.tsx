@@ -19,7 +19,7 @@ const menuItemStyles = {
 };
 
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
   const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorWardEl, setAnchorWardEl] = useState<null | HTMLElement>(null);
