@@ -33,16 +33,16 @@ const WardPage: React.FC = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const res = await PatientData()
-          const filteredPatients = res.patients.filter((patient) => patient.ward === ward)
-          setPatients(filteredPatients)
-          setIsLoading(false)
+          const res = await PatientData();
+          const filteredPatients = res.patients.filter((patient) => patient.ward === ward);
+          setPatients(filteredPatients);
+          setIsLoading(false);
         } catch (error) {
-          console.error("error fetching data", error)
+          console.error("error fetching data", error);
         }
       }
       fetchData()
-    },[])
+    },[]);
 
     const handleHome = () => {
         router.push('/homePage')

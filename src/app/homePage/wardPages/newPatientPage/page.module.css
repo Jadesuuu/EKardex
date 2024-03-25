@@ -1,6 +1,6 @@
 .NewPatient {
     background-color: #203162;
-    height: 100vh;
+    height: 235vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -8,9 +8,9 @@
     justify-content: center;
 }
 .formPage {
-    background-color: white;
+    background-color: #FFF5EE;
     width: 60%;
-    height: 110%;
+    height: 235%;
 }
 .divider {
     display: flex;
@@ -20,6 +20,11 @@
 }
 .wardHeader {
     padding-top: 2%;
+    position: fixed;
+    z-index: 10;
+    background-color: white;
+    width: 60.45%;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.16), 0px 1px 1px rgba(0, 0, 0, 0.23);
 }
 .form2 {
     margin-top: '10px';
