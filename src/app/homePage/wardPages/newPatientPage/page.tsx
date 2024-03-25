@@ -24,6 +24,12 @@ function RenderCheckBox(props: GridRenderCellParams<any, boolean>) {
         size='medium'
         checked={checked} 
         onChange={handleChange} 
+        sx={{
+            color: '#203162',
+            '&.Mui-checked': {
+              color: '#203162',
+            },
+          }}
       />
     );
   }
@@ -127,7 +133,7 @@ const NewPatientPage: React.FC = () => {
             allergies: 'Penicillin', 
             weightAndHeight: '50kg 170cm', 
             bloodType: 'A-', 
-            phic: true,
+            phic: false,
             others: '',
             referral: '',
             dateOfBirth: new Date('2000-01-01'), 
@@ -153,6 +159,10 @@ const NewPatientPage: React.FC = () => {
             },
         }
     ];
+
+    const handleOnFormSubmit = () => {
+        console.log('hatdog')
+    }
 
     ward?.toString()
     const handleHome = () => {
@@ -233,7 +243,10 @@ const NewPatientPage: React.FC = () => {
                 <Divider variant="middle" sx={{width: '95%', background: '#203162', height: '2px', marginTop: '-5vh'}}/>
             </div>
         </div>
-        <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh', marginTop: '13vh' }}>
+        <div style={{marginTop: '13vh', marginBottom: '0.5vh', display:'flex', justifyContent: 'flex-end', paddingRight: '1.4vw'}}>
+            <Button variant='contained' sx={{borderRadius: 35, fontWeight: 'bold', background: '#203162'}} onSubmit={handleOnFormSubmit}>Create Patient</Button>
+        </div>
+        <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
             <DataGrid columns={patientColumn1} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
         </div >
         <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
