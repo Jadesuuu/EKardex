@@ -169,6 +169,17 @@ const NewPatientPage: React.FC = () => {
         router.push('/homePage')
     }
 
+    const diagnosticTestData = initialRows.flatMap((row) => {
+        const { diagnosticTests, id: originalId, ...rest } = row;
+      
+        return Object.entries(diagnosticTests).map(([key, value]) => ({
+          id: key,
+          ...rest,
+          ...value,
+          originalId: originalId,
+        }));
+      });
+
     const patientColumn1: GridColDef<RowData>[] = [
         {field: 'patientNumber', headerName: 'Patient #', width: 85, editable: rowEditable, type: 'number'},
         {field: 'roomNumber', headerName: 'Room #', width: 75, editable: rowEditable},
@@ -201,6 +212,7 @@ const NewPatientPage: React.FC = () => {
         {field: 'bloodType', headerName: 'Blood Type', width: 200, editable: false, renderCell: RenderSelectBlood}
     ];
     const patientColumn5: GridColDef<RowData>[] = [
+        {field: 'id', headerName: 'ID', width: 100, editable: rowEditable, type: 'number'},
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
         {field: 'diagnosticTest', headerName: 'Diagnostic Test', width: 310, editable: rowEditable},
         {field: 'date_done', headerName: 'Date done', width: 100, editable: rowEditable, type:'date'},
@@ -276,7 +288,7 @@ const NewPatientPage: React.FC = () => {
             </div>
         </div>
         <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn9} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{width: '47.75%', background: 'white'}}/>
+                <DataGrid columns={patientColumn9} rows={diagnosticTestData} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{width: '47.75%', background: 'white'}}/>
         </div>
         </div>
     </div>
