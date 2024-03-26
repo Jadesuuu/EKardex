@@ -10,104 +10,104 @@ import Checkbox from '@mui/material/Checkbox';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp } from '@mui/x-data-grid';
 import type {Patient as RowData} from '@/app/components/getData'
 
-function RenderCheckBox(props: GridRenderCellParams<any, boolean>) {
-    const [checked, setChecked] = React.useState(props.value); 
-    const label = { inputProps : {'aria-label': 'PHIC'}};
-   
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setChecked(event.target.checked);
-    };
-    
-    return (
-      <Checkbox
-        {...label}
-        size='medium'
-        checked={checked} 
-        onChange={handleChange} 
-        sx={{
-            color: '#203162',
-            '&.Mui-checked': {
-              color: '#203162',
-            },
-          }}
-      />
-    );
-  }
-
-function RenderSelectWard(props: GridRenderCellParams<any, string>) {
-    const [patientWard, setPatientWard] = useState('');
-    const [selectEditable, setSelectEditable] = useState(false);
-    const label = {inputProps: {'aria-label': 'Ward'}}
-    const handleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setPatientWard(event.target.value)
-    };
-
-    return (
-        <Select  {...label}
-        onChange={handleChange}
-        sx={{width: '10vw', height: '5vh'}}
-        inputProps={{readOnly: selectEditable}}> 
-            <MenuItem value='Medical Ward'>Medical Ward</MenuItem>
-            <MenuItem value='Surgical Ward'>Surgical Ward</MenuItem>
-            <MenuItem value='Pediatrics Ward'>Pediatrics Ward</MenuItem>
-            <MenuItem value='OB GYN Ward'>OB GYN Ward</MenuItem>
-            <MenuItem value='CCU-MICU'>CCU-MICU</MenuItem>
-            <MenuItem value='PRDL Ward'>PRDL Ward</MenuItem>
-        </Select>
-    )
-}
-
-function RenderSelectGender(props: GridRenderCellParams<any, string>) {
-    const [patientGender, setPatientGender] = useState('');
-    const [selectEditable, setSelectEditable] = useState(false);
-    const label = {inputProps: {'aria-label': 'Gender'}}
-    const handleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setPatientGender(event.target.value)
-    };
-
-    return (
-        <Select  {...label}
-        onChange={handleChange}
-        fullWidth
-        sx={{height: '5vh'}}
-        inputProps={{readOnly: selectEditable}}>
-            <MenuItem value='M'>M</MenuItem>
-            <MenuItem value='F'>F</MenuItem>
-        </Select>
-    )
-}
-
-function RenderSelectBlood(props: GridRenderCellParams<any, string>) {
-    const [patientBloodType, setPatientBloodType] = useState('');
-    const [selectEditable, setSelectEditable] = useState(false);
-    const label = {inputProps: {'aria-label': 'Blood Type'}}
-    const handleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
-        setPatientBloodType(event.target.value)
-    };
-
-    return (
-        <Select  {...label}
-        onChange={handleChange}
-        fullWidth
-        sx={{width: '5vw', height: '5vh'}}
-        inputProps={{readOnly: selectEditable}}>
-            <MenuItem value='A+'>A+</MenuItem>
-            <MenuItem value=' A-'>A-</MenuItem>
-            <MenuItem value='B+'>B+</MenuItem>
-            <MenuItem value='B-'>B-</MenuItem>
-            <MenuItem value='O+'>O+</MenuItem>
-            <MenuItem value='O-'>O-</MenuItem>
-            <MenuItem value='AB+'>AB+</MenuItem>
-            <MenuItem value='AB-'>AB-</MenuItem>
-        </Select>
-    )
-}
-
 const NewPatientPage: React.FC = () => {
     const [rowEditable, setRowEditable] = useState(true);
     const router = useRouter();
     const searchParams = useSearchParams();
     const ward = searchParams.get('ward');
+
+    function RenderCheckBox(props: GridRenderCellParams<any, boolean>) {
+        const [checked, setChecked] = React.useState(props.value); 
+        const label = { inputProps : {'aria-label': 'PHIC'}};
+       
+        const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+          setChecked(event.target.checked);
+        };
+        
+        return (
+          <Checkbox
+            {...label}
+            size='medium'
+            checked={checked} 
+            onChange={handleChange} 
+            sx={{
+                color: '#203162',
+                '&.Mui-checked': {
+                  color: '#203162',
+                },
+              }}
+          />
+        );
+      }
+    
+    function RenderSelectWard(props: GridRenderCellParams<any, string>) {
+        const [patientWard, setPatientWard] = useState('');
+        const [selectEditable, setSelectEditable] = useState(false);
+        const label = {inputProps: {'aria-label': 'Ward'}}
+        const handleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+            setPatientWard(event.target.value)
+        };
+    
+        return (
+            <Select  {...label}
+            onChange={handleChange}
+            sx={{width: '10vw', height: '5vh'}}
+            inputProps={{readOnly: selectEditable}}> 
+                <MenuItem value='Medical Ward'>Medical Ward</MenuItem>
+                <MenuItem value='Surgical Ward'>Surgical Ward</MenuItem>
+                <MenuItem value='Pediatrics Ward'>Pediatrics Ward</MenuItem>
+                <MenuItem value='OB GYN Ward'>OB GYN Ward</MenuItem>
+                <MenuItem value='CCU-MICU'>CCU-MICU</MenuItem>
+                <MenuItem value='PRDL Ward'>PRDL Ward</MenuItem>
+            </Select>
+        )
+    }
+    
+    function RenderSelectGender(props: GridRenderCellParams<any, string>) {
+        const [patientGender, setPatientGender] = useState('');
+        const [selectEditable, setSelectEditable] = useState(false);
+        const label = {inputProps: {'aria-label': 'Gender'}}
+        const handleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+            setPatientGender(event.target.value)
+        };
+    
+        return (
+            <Select  {...label}
+            onChange={handleChange}
+            fullWidth
+            sx={{height: '5vh'}}
+            inputProps={{readOnly: selectEditable}}>
+                <MenuItem value='M'>M</MenuItem>
+                <MenuItem value='F'>F</MenuItem>
+            </Select>
+        )
+    }
+    
+    function RenderSelectBlood(props: GridRenderCellParams<any, string>) {
+        const [patientBloodType, setPatientBloodType] = useState('');
+        const [selectEditable, setSelectEditable] = useState(false);
+        const label = {inputProps: {'aria-label': 'Blood Type'}}
+        const handleChange = (event: { target: { value: React.SetStateAction<string> } }) => {
+            setPatientBloodType(event.target.value)
+        };
+    
+        return (
+            <Select  {...label}
+            onChange={handleChange}
+            fullWidth
+            sx={{width: '5vw', height: '5vh'}}
+            inputProps={{readOnly: selectEditable}}>
+                <MenuItem value='A+'>A+</MenuItem>
+                <MenuItem value=' A-'>A-</MenuItem>
+                <MenuItem value='B+'>B+</MenuItem>
+                <MenuItem value='B-'>B-</MenuItem>
+                <MenuItem value='O+'>O+</MenuItem>
+                <MenuItem value='O-'>O-</MenuItem>
+                <MenuItem value='AB+'>AB+</MenuItem>
+                <MenuItem value='AB-'>AB-</MenuItem>
+            </Select>
+        )
+    }
 
     const initialRows: GridRowsProp<RowData> = [
         {
@@ -137,10 +137,10 @@ const NewPatientPage: React.FC = () => {
             others: '',
             referral: '',
             dateOfBirth: new Date('2000-01-01'), 
-            diagnosticTests: {
-                '1': { diagnosticTest: 'Test 1', date: '2024-03-25', date_done: '2024-03-25' },
-                '2': { diagnosticTest: 'Test 2', date: '2024-03-25', date_done: '2024-03-25' },
-            },
+            diagnosticTests: [
+                {id: 1, diagnosticTest: 'Test 1', date: new Date('2024-03-25'), date_done: new Date('2024-03-25') },
+                {id: 2, diagnosticTest: 'Test 2', date: new Date('2024-03-25'), date_done: new Date('2024-03-25') },
+            ],
             ivFluidBloodTransMedsIncorporated: {
                 '1': { ivfbtic: 'Test 3', date: '2024-03-25', time_hooked: '2024-03-24T08:15:00Z'},
                 '2': { ivfbtic: 'Test 4', date: '2024-03-25', time_hooked: '2024-03-24T08:15:00Z'}
@@ -169,16 +169,17 @@ const NewPatientPage: React.FC = () => {
         router.push('/homePage')
     }
 
-    const diagnosticTestData = initialRows.flatMap((row) => {
-        const { diagnosticTests, id: originalId, ...rest } = row;
+
+    // const diagnosticTestData = initialRows.flatMap((row) => {
+    //     const { diagnosticTests, id: originalId, ...rest } = row;
       
-        return Object.entries(diagnosticTests).map(([key, value]) => ({
-          id: key,
-          ...rest,
-          ...value,
-          originalId: originalId,
-        }));
-      });
+    //     return Object.entries(diagnosticTests).map(([key, value]) => ({
+    //       id: key,
+    //       ...rest,
+    //       ...value,
+    //       originalId,
+    //     }));
+    //   });
 
     const patientColumn1: GridColDef<RowData>[] = [
         {field: 'patientNumber', headerName: 'Patient #', width: 85, editable: rowEditable, type: 'number'},
@@ -211,10 +212,10 @@ const NewPatientPage: React.FC = () => {
         {field: 'weightAndHeight', headerName: 'Weight & Height', width: 200, editable: rowEditable},
         {field: 'bloodType', headerName: 'Blood Type', width: 200, editable: false, renderCell: RenderSelectBlood}
     ];
-    const patientColumn5: GridColDef<RowData>[] = [
+    const patientColumn5: GridColDef<any>[] = [
         {field: 'id', headerName: 'ID', width: 100, editable: rowEditable, type: 'number'},
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'diagnosticTest', headerName: 'Diagnostic Test', width: 310, editable: rowEditable},
+        {field: 'diagnosticTest', headerName: 'Diagnostic Test', width: 310, editable: rowEditable, type: 'string'},
         {field: 'date_done', headerName: 'Date done', width: 100, editable: rowEditable, type:'date'},
     ];
     const patientColumn6: GridColDef<RowData>[] = [
@@ -255,41 +256,41 @@ const NewPatientPage: React.FC = () => {
                 <Divider variant="middle" sx={{width: '95%', background: '#203162', height: '2px', marginTop: '-5vh'}}/>
             </div>
         </div>
-        <div style={{marginTop: '13vh', marginBottom: '0.5vh', display:'flex', justifyContent: 'flex-end', paddingRight: '1.4vw'}}>
-            <Button variant='contained' sx={{borderRadius: 35, fontWeight: 'bold', background: '#203162'}} onSubmit={handleOnFormSubmit}>Create Patient</Button>
-        </div>
-        <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-            <DataGrid columns={patientColumn1} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
-        </div >
-        <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-            <DataGrid columns={patientColumn2} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
-        </div>
-        <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-            <DataGrid columns={patientColumn3} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
-        </div>
-        <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-            <DataGrid columns={patientColumn4} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
-        </div>
-        
-        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', width: '98%'}}>
-            <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn5} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
+            <div style={{marginTop: '13vh', marginBottom: '0.5vh', display:'flex', justifyContent: 'flex-end', paddingRight: '1.4vw'}}>
+                <Button variant='contained' sx={{borderRadius: 35, fontWeight: 'bold', background: '#203162'}} onSubmit={handleOnFormSubmit}>Create Patient</Button>
+            </div>
+            <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
+                <DataGrid columns={patientColumn1} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+            </div >
+            <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
+                <DataGrid columns={patientColumn2} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
+            </div>
+            <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
+                <DataGrid columns={patientColumn3} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
+            </div>
+            <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
+                <DataGrid columns={patientColumn4} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
+            </div>
+            
+            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', width: '98%'}}>
+                <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
+                    <DataGrid columns={patientColumn5} rows={initialRows[0].diagnosticTests} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
+                </div>
+                <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
+                    <DataGrid columns={patientColumn6} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
+                </div>
+            </div>
+            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', width: '98%'}}>
+                <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
+                    <DataGrid columns={patientColumn7} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
+                </div>
+                <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
+                    <DataGrid columns={patientColumn8} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
+                </div>
             </div>
             <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn6} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
+                <DataGrid columns={patientColumn9} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{width: '47.75%', background: 'white'}}/>
             </div>
-        </div>
-        <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', width: '98%'}}>
-            <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn7} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
-            </div>
-            <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn8} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}}/>
-            </div>
-        </div>
-        <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn9} rows={diagnosticTestData} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{width: '47.75%', background: 'white'}}/>
-        </div>
         </div>
     </div>
   )

@@ -29,7 +29,7 @@ export interface Patient {
   others: string;
   referral: string;
   dateOfBirth: Date;
-  diagnosticTests: { [key: string]: { diagnosticTest: string; date: string; date_done: string } };
+  diagnosticTests: { id: number, diagnosticTest: string; date: Date; date_done: Date }[];
   ivFluidBloodTransMedsIncorporated: { [key: string]: { ivfbtic: string; date: string; time_hooked: string } };
   mainMedications: { [key: string]: { mainMedication: string; date: string; time: string } };
   prnMedications: { [key: string]: { prnMedication: string; date: string; time: string } };
