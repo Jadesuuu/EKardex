@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Styles from './page.module.css'
-import { IconButton, Typography, Button, Box } from '@mui/material'
+import { IconButton, Typography, Button, Box, Grid } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HouseIcon from '@mui/icons-material/House';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -97,13 +97,29 @@ const KardexHistoryPage: React.FC = () => {
             <Divider variant="middle" sx={{width: '85vw', background: 'white', height: '2px'}}/>
         </div>
         <div className={Styles.patientNameTitle}>
-          <Typography variant='h6'>{roomNumber} </Typography>
-          <Typography variant='h6'>{lastName}, </Typography>
-          <Typography variant='h6'>{givenName} </Typography>
-          <Typography variant='h6'>{middleName} </Typography>
-          <Typography variant='h6'>{age} </Typography>
-          <Typography variant='h6'>{sex} </Typography>
-          <Typography variant='h6'>{patientNumber} </Typography>
+          <Grid container spacing={1} sx={{paddingLeft: '8vw', paddingTop: '2vh', paddingBottom: '2vh'}}> 
+            <Grid item xs={1}>
+              <Typography variant='h4' sx={{color: 'white', fontWeight: 'bold'}}>{roomNumber} </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography variant='h4' sx={{color: 'white', fontWeight: 'bold'}}>{lastName} </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography variant='h4' sx={{color: 'white', fontWeight: 'bold'}}>{givenName} </Typography>
+            </Grid>
+            <Grid item xs={1}>  
+              <Typography variant='h4' sx={{color: 'white', fontWeight: 'bold'}}>{middleName} </Typography>
+            </Grid>
+            <Grid item xs={1}>  
+              <Typography variant='h4'sx={{color: 'white', fontWeight: 'bold'}}>{age} </Typography>
+            </Grid>
+            <Grid item xs={1}>
+              <Typography variant='h4' sx={{color: 'white', fontWeight: 'bold'}}>{sex} </Typography>
+            </Grid>
+            <Grid item xs={1}>
+              <Typography variant='h4'sx={{color: 'white', fontWeight: 'bold'}}>{patientNumber} </Typography>
+            </Grid>
+          </Grid>
         </div>
         <div className={Styles.table}>
           <Box sx={{ height: 650, width: '85.1vw', marginTop: '0.5%', background: 'white'}}>
