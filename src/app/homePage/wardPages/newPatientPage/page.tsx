@@ -83,11 +83,16 @@ const NewPatientPage: React.FC = () => {
                 {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
             ],
             ivFluidBloodTransMedsIncorporated: [
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: ''},
+                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
             ],
             mainMedications: [
                 {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
@@ -174,11 +179,11 @@ const NewPatientPage: React.FC = () => {
         {field: 'religion', headerName: 'Religion', width: 80, editable: rowEditable},
         {field: 'phic', headerName: 'PHIC', width: 80, editable: false, renderCell: RenderCheckBox},
         {field: 'ward', headerName: 'Ward', width: 200, editable: rowEditable, type:'singleSelect', 
-        valueOptions: ['Medical Ward', 'Surgical Ward', 'Pediatrics Ward', 'OB GYN Ward', 'CCU-MICU', 'PRDL Ward']},
+        valueOptions: ['Medical Ward', 'Surgical Ward', 'Pediatrics Ward', 'OB GYN Ward', 'CCU', 'MICU', 'PICU', 'NCCU', 'PRDL Ward']},
         {field: 'doctor', headerName: 'Doctor', width: 150, editable: rowEditable},
+        {field: 'referral', headerName: 'Referral', width: 258, editable: rowEditable},
         {field: 'others', headerName: 'Others', width: 295, editable: rowEditable},
-        {field: 'referral', headerName: 'Referral', width: 258, editable: rowEditable}
-    ];
+    ];  
     const patientColumn3: GridColDef<RowData>[] = [
         {field: 'chiefComplaint', headerName: 'Chief Complaint', width: 360, editable: rowEditable},
         {field: 'diagnosis', headerName: 'Impression/Diagnosis', width: 355, editable: rowEditable},
@@ -201,6 +206,7 @@ const NewPatientPage: React.FC = () => {
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
         {field: 'ivfbtic', headerName: 'IVF/BT/INCORPORATED MEDS', width: 240, editable: rowEditable},
         {field: 'time_hooked', headerName: 'Time hooked', width: 180, editable: rowEditable, type:'dateTime'},
+        {field: 'endorse', headerName: 'To Endorse, VS', width: 150, editable: rowEditable}
     ];
     const patientColumn7: GridColDef<any>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
@@ -254,7 +260,7 @@ const NewPatientPage: React.FC = () => {
                 <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
                     <DataGrid columns={patientColumn5} rows={initialRows[0].diagnosticTests} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
                 </div>
-                <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
+                <div style={{ height: 500, width: '77.2%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
                     <DataGrid columns={patientColumn6} rows={initialRows[0].ivFluidBloodTransMedsIncorporated} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
                 </div>
             </div>

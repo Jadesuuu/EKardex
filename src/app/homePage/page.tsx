@@ -61,7 +61,10 @@ const HomePage: React.FC = () => {
     surgWard: 'Surgical Ward',
     pediaWard: 'Pediatrics Ward',
     obWard: 'OB GYN Ward',
-    ccuWard: 'CCU-MICU', 
+    ccuWard: 'CCU',
+    micuWard: 'MICU',
+    picuWard: 'PICU',
+    nccuWard: 'NCCU', 
     prdlWard: 'PRDL Ward'
   };
 
@@ -83,6 +86,18 @@ const HomePage: React.FC = () => {
 
   const setCCUWard = () => {
     router.push(`/homePage/wardPages?ward=${query.ccuWard}`);
+  };
+
+  const setMICUWard = () => {
+    router.push(`/homePage/wardPages?ward=${query.micuWard}`);
+  };
+
+  const setPICUWard = () => {
+    router.push(`/homePage/wardPages?ward=${query.picuWard}`);
+  };
+  
+  const setNCCUWard = () => {
+    router.push(`/homePage/wardPages?ward=${query.nccuWard}`);
   };
 
   const setPRDLWard = () => {
@@ -183,7 +198,16 @@ const HomePage: React.FC = () => {
                     OB GYN
               </MenuItem>
               <MenuItem sx={menuItemStyles} onClick={setCCUWard}>
-                    CCU-MICU
+                    CCU
+              </MenuItem>
+              <MenuItem sx={menuItemStyles} onClick={setMICUWard}>
+                    MICU
+              </MenuItem>
+              <MenuItem sx={menuItemStyles} onClick={setPICUWard}>
+                    PICU
+              </MenuItem>
+              <MenuItem sx={menuItemStyles} onClick={setNCCUWard}>
+                    NCCU
               </MenuItem>
               <MenuItem sx={menuItemStyles} onClick={setPRDLWard}>
                     PRDL
