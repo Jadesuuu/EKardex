@@ -37,6 +37,7 @@ const WardPage: React.FC = () => {
           const filteredPatients = res.patients.filter((patient) => patient.ward === ward && patient.fileVersion === 1);
           setPatients(filteredPatients);
           setIsLoading(false);
+          console.log(filteredPatients);
         } catch (error) {
           console.error("error fetching data", error);
         }
@@ -45,13 +46,6 @@ const WardPage: React.FC = () => {
     },[]);
 
     const handleOnRowClick: GridEventListener<'rowClick'> = (params) => {
-      console.log(params.row.patientNumber)
-      console.log(params.row.roomNumber)
-      console.log(params.row.lastName)
-      console.log(params.row.givenName)
-      console.log(params.row.middleName)
-      console.log(params.row.age)
-      console.log(params.row.sex)
       router.push(`/homePage/wardPages/kardexHistoryPage?ward=${ward}
       &patientNumber=${params.row.patientNumber}
       &roomNumber=${params.row.roomNumber}
@@ -111,7 +105,7 @@ const WardPage: React.FC = () => {
           variant='contained' 
           sx={{
             background: '#203162', 
-            color: 'white', 
+            color: 'white',   
             borderRadius: 10, 
             fontWeight: 'bold', 
             width:'11.5vw',
@@ -127,7 +121,7 @@ const WardPage: React.FC = () => {
             <DataGrid 
               rows={patients} 
               columns={columns} 
-              getRowId={(row) => row.fileVersion} 
+              getRowId={(row) => row.id} 
               slots={{toolbar: GridToolbar}} 
               slotProps={{toolbar: {showQuickFilter: true}}}
               sx={{

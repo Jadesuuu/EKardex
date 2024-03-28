@@ -7,15 +7,14 @@ import HouseIcon from '@mui/icons-material/House';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Divider from '@mui/material/Divider';
 import {page as PatientData } from '@/app/components/getData'
-import type {Patient} from '@/app/components/getData'
-import { DataGrid, GridToolbar, GridRowSelectionModel, GridColDef, GridActionsCellItem, GridRowParams } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridRowSelectionModel, GridColDef, GridActionsCellItem, GridRowParams, GridEventListener } from '@mui/x-data-grid';
 import type {Patient as RowData} from '@/app/components/getData'
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const KardexHistoryPage: React.FC = () => {
-    const [patients, setPatients] = useState<Patient[]>([]);
-    const [selectedRows, setSelectedRows] = useState<Patient[]>([]);
+    const [patients, setPatients] = useState<RowData[]>([]);
+    const [selectedRows, setSelectedRows] = useState<RowData[]>([]);
     const [isLoading, setIsLoading] = useState(true)
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -61,6 +60,7 @@ const KardexHistoryPage: React.FC = () => {
     const column2: GridColDef<RowData>[] = [  
       { field: 'updated_at', headerName: 'Last Updated', width: 350, editable: false, type: 'dateTime', valueGetter: (value) => new Date(value), },
       { field: 'updated_by', headerName: 'Updated By', width: 350, editable: false},
+      { field: 'fileVersion', headerName: 'Version', width: 350, editable: false},
       { field: 'actions', type: 'actions', getActions: (params: GridRowParams) => [
         <GridActionsCellItem icon={<DeleteIcon />} onClick={handleDeleteOnClick} label='Delete' />,
         <GridActionsCellItem icon={<ContentCopyIcon />} onClick={handleDuplicateOnClick} label='Duplicate' />,
@@ -68,16 +68,15 @@ const KardexHistoryPage: React.FC = () => {
     ]
 
     const handleHome = () => {
-        router.push('/homePage')
-    }
-    
-    const handleNewPatient = () => {
-      router.push(`/homePage/wardPages/newPatientPage?ward=${ward}`)
+      router.push('/homePage')
     }
 
-    const handlePatientRow = () => {
-      router.push('/homePage/wardPages/kardexHistoryPage')
-    }
+    const handleOnRowClick: GridEventListener<'rowClick'> = (params) => {
+      router.push(`/homePage/wardPages/kardexHistoryPage/viewKardexPage?ward=${ward}
+      &patientNumber=${params.row.patientNumber}
+      &fileVersion=${params.row.fileVersion}
+      &id=${params.row.id}`);
+    };
 
   return (
     <div className={Styles.WardPage}>
@@ -104,7 +103,7 @@ const KardexHistoryPage: React.FC = () => {
             <Grid item xs={2}>
               <Typography variant='h4' sx={{color: 'white', fontWeight: 'bold'}}>{lastName} </Typography>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <Typography variant='h4' sx={{color: 'white', fontWeight: 'bold'}}>{givenName} </Typography>
             </Grid>
             <Grid item xs={1}>  
@@ -134,6 +133,15 @@ const KardexHistoryPage: React.FC = () => {
                   color: '#203162', 
                   fontWeight: 'bold'
                 },
+              }}
+              onRowClick={handleOnRowClick}
+              initialState={{
+                sorting: {
+                  sortModel: [{
+                    field: 'updated_at',
+                    sort: 'desc',
+                  }]
+                }
               }}
             />
           </Box>

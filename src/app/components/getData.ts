@@ -32,11 +32,11 @@ export interface Patient {
   others: string;
   referral: string;
   dateOfBirth: string;
-  diagnosticTests: { id: number, diagnosticTest: string; date: string; date_done: string }[];
-  ivFluidBloodTransMedsIncorporated: { id: number, ivfbtic: string; date: string; time_hooked: string }[];
-  mainMedications: { id: number, mainMedication: string; date: string; time: string }[];
-  prnMedications: { id: number, prnMedication: string; date: string; time: string }[];
-  treatments: { id: number, treatment: string; date: string; time: string }[];
+  diagnosticTests: { id: string, diagnosticTest: string; date: string; date_done: string }[];
+  ivFluidBloodTransMedsIncorporated: { id: string, ivfbtic: string; date: string; time_hooked: string }[];
+  mainMedications: { id: string, mainMedication: string; date: string; time: string }[];
+  prnMedications: { id: string, prnMedication: string; date: string; time: string }[];
+  treatments: { id: string, treatment: string; date: string; time: string }[];
 }
 
 interface PatientRes {
