@@ -2,16 +2,19 @@
 import Styles from './page.module.css'
 import {promises as fs} from 'fs'
 
+let nextId = 1;
+
 export interface Patient {
-  id: number;
+  id: string;
   ward: string;
+  fileVersion: number;
   roomNumber: string;
   lastName: string;
   givenName: string;
   middleName: string;
   age: number;
   sex: string;
-  patientNumber: number;
+  patientNumber: string;
   updated_at: Date;
   updated_by: string;
   datetime_admitted: Date;
@@ -28,12 +31,12 @@ export interface Patient {
   phic: boolean;
   others: string;
   referral: string;
-  dateOfBirth: Date;
-  diagnosticTests: { id: number, diagnosticTest: string; date: Date; date_done: Date }[];
-  ivFluidBloodTransMedsIncorporated: { [key: string]: { ivfbtic: string; date: string; time_hooked: string } };
-  mainMedications: { [key: string]: { mainMedication: string; date: string; time: string } };
-  prnMedications: { [key: string]: { prnMedication: string; date: string; time: string } };
-  treatments: { [key: string]: { treatment: string; date: string; time: string } };
+  dateOfBirth: string;
+  diagnosticTests: { id: number, diagnosticTest: string; date: string; date_done: string }[];
+  ivFluidBloodTransMedsIncorporated: { id: number, ivfbtic: string; date: string; time_hooked: string }[];
+  mainMedications: { id: number, mainMedication: string; date: string; time: string }[];
+  prnMedications: { id: number, prnMedication: string; date: string; time: string }[];
+  treatments: { id: number, treatment: string; date: string; time: string }[];
 }
 
 interface PatientRes {

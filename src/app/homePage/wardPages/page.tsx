@@ -8,7 +8,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Divider from '@mui/material/Divider';
 import {page as PatientData } from '@/app/components/getData'
 import type {Patient} from '@/app/components/getData'
-import { DataGrid, GridToolbar, GridRowSelectionModel } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridRowSelectionModel, GridEventListener } from '@mui/x-data-grid';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const columns = [
@@ -34,7 +34,7 @@ const WardPage: React.FC = () => {
       const fetchData = async () => {
         try {
           const res = await PatientData();
-          const filteredPatients = res.patients.filter((patient) => patient.ward === ward);
+          const filteredPatients = res.patients.filter((patient) => patient.ward === ward && patient.fileVersion === 1);
           setPatients(filteredPatients);
           setIsLoading(false);
         } catch (error) {
@@ -43,6 +43,24 @@ const WardPage: React.FC = () => {
       }
       fetchData()
     },[]);
+
+    const handleOnRowClick: GridEventListener<'rowClick'> = (params) => {
+      console.log(params.row.patientNumber)
+      console.log(params.row.roomNumber)
+      console.log(params.row.lastName)
+      console.log(params.row.givenName)
+      console.log(params.row.middleName)
+      console.log(params.row.age)
+      console.log(params.row.sex)
+      router.push(`/homePage/wardPages/kardexHistoryPage?ward=${ward}
+      &patientNumber=${params.row.patientNumber}
+      &roomNumber=${params.row.roomNumber}
+      &lastName=${params.row.lastName}
+      &givenName=${params.row.givenName}
+      &middleName=${params.row.middleName}
+      &age=${params.row.age}
+      &sex=${params.row.sex}`);
+    };
 
     const handleHome = () => {
         router.push('/homePage')
@@ -109,7 +127,7 @@ const WardPage: React.FC = () => {
             <DataGrid 
               rows={patients} 
               columns={columns} 
-              getRowId={(row) => row.patientNumber} 
+              getRowId={(row) => row.fileVersion} 
               slots={{toolbar: GridToolbar}} 
               slotProps={{toolbar: {showQuickFilter: true}}}
               sx={{
@@ -118,6 +136,7 @@ const WardPage: React.FC = () => {
                   fontWeight: 'bold'
                 },
               }}
+              onRowClick={handleOnRowClick}
             />
           </Box>
         </div>
