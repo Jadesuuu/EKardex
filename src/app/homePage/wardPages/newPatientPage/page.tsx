@@ -1,17 +1,18 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Styles from './page.module.css'
-import { IconButton, Typography, Button, Box, TextField, InputLabel, Select, MenuItem, FormControl } from '@mui/material'
+import { IconButton, Typography, Button, Box, TextField, InputLabel, Select, MenuItem, FormControl, Grid } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HouseIcon from '@mui/icons-material/House';
 import Divider from '@mui/material/Divider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Checkbox from '@mui/material/Checkbox';
-import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp } from '@mui/x-data-grid';
+import { DataGrid, GridCellParams, GridColDef, GridRenderCellParams, GridRowEditStopParams, GridRowsProp, GridApi } from '@mui/x-data-grid';
 import type { Patient as RowData } from '@/app/components/getData'
 import {page as PatientData, createPatient } from '@/app/components/getData'
 
 const NewPatientPage: React.FC = () => {
+    const gridRef = React.useRef<GridApi | null>(null)
     const [rowEditable, setRowEditable] = useState(true);
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -144,14 +145,12 @@ const NewPatientPage: React.FC = () => {
 
     const [patientData, setPatientData] = useState<GridRowsProp<RowData>>(initialRows);
 
-
-    const handleOnCellEditStop = (gridData: any) => {
-        setPatientData((prevData: any) => {
-            const newData =[...prevData];
-            newData[gridData.id] = {...newData[gridData.id], [gridData.field]: gridData.value};
-            return newData
-        })
-    }
+    const handleCellEditStop = (params: any) => {
+        const updatedRows = patientData.map((row) =>
+            row.id === params.id ? { ...row, ...params.value } : row
+        );
+        setPatientData(updatedRows);
+    };
 
     const handleOnFormSubmit = async () => {
         /**
@@ -165,7 +164,7 @@ const NewPatientPage: React.FC = () => {
          */
 
         // await createPatient(patientData[0])
-       
+        console.log(patientData)
     }
 
     ward?.toString()
@@ -174,7 +173,7 @@ const NewPatientPage: React.FC = () => {
     }
 
     const patientColumn1: GridColDef<RowData>[] = [
-        {field: 'patientNumber', headerName: 'Patient #', width: 85, editable: rowEditable},
+        {field: 'patientNumber', headerName: 'Patient #', width: 85, editable: rowEditable },
         {field: 'roomNumber', headerName: 'Room #', width: 75, editable: rowEditable},
         {field: 'lastName', headerName: 'Last Name', width: 100, editable: rowEditable},
         {field: 'givenName', headerName: 'Given Name', width: 210, editable: rowEditable},
@@ -229,7 +228,7 @@ const NewPatientPage: React.FC = () => {
     ];
     const patientColumn9: GridColDef<any>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'treatment', headerName: 'Treatments', width: 240, editable: rowEditable},
+        {field: 'treatment', headerName: 'Treatments', width: 237, editable: rowEditable},
         {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime'},
     ];
   return (
@@ -254,7 +253,7 @@ const NewPatientPage: React.FC = () => {
                 <Button variant='contained' sx={{borderRadius: 35, fontWeight: 'bold', background: '#203162'}} onClick={() => (async() => handleOnFormSubmit())()}>Create Patient</Button>
             </div>
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn1} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                <DataGrid columns={patientColumn1} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} onCellEditStop={handleCellEditStop}/>
             </div >
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
                 <DataGrid columns={patientColumn2} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
@@ -265,23 +264,23 @@ const NewPatientPage: React.FC = () => {
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
                 <DataGrid columns={patientColumn4} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
             </div>
-            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', width: '98%'}}>
-                <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                    <DataGrid columns={patientColumn5} rows={initialRows[0].diagnosticTests} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
-                </div>
-                <div style={{ height: 500, width: '77.2%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                    <DataGrid columns={patientColumn6} rows={initialRows[0].ivFluidBloodTransMedsIncorporated} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
-                </div>
+            <div style={{marginBottom: '0.5vh', height: '500px', paddingLeft: '1.4vw'}}>
+                <Grid container spacing={1} >
+                    <Grid item xs={5.88}>
+                        <DataGrid columns={patientColumn5} rows={initialRows[0].diagnosticTests} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                    </Grid>
+                    <Grid item xs={5.88}>
+                        <DataGrid columns={patientColumn6} rows={initialRows[0].ivFluidBloodTransMedsIncorporated} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                    </Grid>
+                    <Grid item xs={5.88}>
+                        <DataGrid columns={patientColumn7} rows={initialRows[0].mainMedications} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                    </Grid>
+                    <Grid item xs={5.88}>
+                        <DataGrid columns={patientColumn8} rows={initialRows[0].prnMedications} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                    </Grid>
+                </Grid>
             </div>
-            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', width: '98%'}}>
-                <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                    <DataGrid columns={patientColumn7} rows={initialRows[0].mainMedications} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
-                </div>
-                <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                    <DataGrid columns={patientColumn8} rows={initialRows[0].prnMedications} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
-                </div>
-            </div>
-            <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
+            <div style={{ height: 1203, width: '89.9vw', paddingLeft: '30.4vw', paddingTop: '73.37vh', marginBottom: '0.5vh'}}>
                 <DataGrid columns={patientColumn9} rows={initialRows[0].treatments} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{width: '47.75%', background: 'white'}} />
             </div>
         </div>

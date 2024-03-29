@@ -8,7 +8,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Divider from '@mui/material/Divider';
 import {page as PatientData } from '@/app/components/getData'
 import { DataGrid, GridToolbar, GridRowSelectionModel, GridColDef, GridActionsCellItem, GridRowParams, GridEventListener, useGridApiRef } from '@mui/x-data-grid';
-import { deleteRow } from '@/app/components/getData';
+import { deleteRow, duplicateRow } from '@/app/components/getData';
 import type {Patient as RowData} from '@/app/components/getData'
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -28,6 +28,7 @@ const KardexHistoryPage: React.FC = () => {
     const age = searchParams.get('age');
     const sex = searchParams.get('sex');
     const dataGridRef = useGridApiRef()
+    const [forceFetch, setForceFetch] = useState(false)
 
     useEffect(() => {
       const fetchData = async () => {
@@ -40,8 +41,12 @@ const KardexHistoryPage: React.FC = () => {
           console.error("error fetching data", error);
         }
       }
+      if (forceFetch) {
+        fetchData()
+        setForceFetch(false)
+      }
       fetchData()
-    },[]);
+    },[forceFetch]);
 
     const handleDeleteOnClick = async (event: React.MouseEvent<HTMLButtonElement>, id: any) => {
       event.preventDefault()
@@ -49,8 +54,10 @@ const KardexHistoryPage: React.FC = () => {
       setPatients(patients.filter(patient => patient.id !== id))
     }
 
-    const handleDuplicateOnClick = () => {
-      console.log('duplicate clicked')
+    const handleDuplicateOnClick = async (event: React.MouseEvent<HTMLButtonElement>, id: any) => {
+      event.preventDefault()
+      await duplicateRow(id);
+      setForceFetch(true)
     }
     
     const column2: GridColDef<RowData>[] = [  
@@ -58,8 +65,8 @@ const KardexHistoryPage: React.FC = () => {
       { field: 'updated_by', headerName: 'Updated By', width: 350, editable: false},
       { field: 'fileVersion', headerName: 'Version', width: 350, editable: false},
       { field: 'actions', type: 'actions', getActions: (params: GridRowParams) => [
-        <GridActionsCellItem icon={<DeleteIcon />} onClick={(e) => (async() => handleDeleteOnClick(e, params.id))()} label='Delete' />,
-        <GridActionsCellItem icon={<ContentCopyIcon />} onClick={handleDuplicateOnClick} label='Duplicate' />,
+        <GridActionsCellItem icon={<ContentCopyIcon />} onClick={(e) => (async() => handleDuplicateOnClick(e, params.id))()} label='Duplicate' />,
+        <GridActionsCellItem icon={<DeleteIcon />} onClick={(e) => (async() => handleDeleteOnClick(e, params.id))()} label='Delete' />
       ]}
     ]
 

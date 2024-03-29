@@ -1,8 +1,10 @@
 'use server'
+import { randomUUID } from 'crypto';
 import Styles from './page.module.css'
 import {promises as fs} from 'fs'
 
 let nextId = 1;
+let updatedDate = new Date();
 
 export interface Patient {
   id: string;
@@ -64,4 +66,24 @@ export async function deleteRow(id: string) {
   const data = await page()
   const filteredData = data.patients.filter(p => p.id !== id)
   await setData(filteredData)
+}
+
+export async function duplicateRow(id: string) {
+  const { patients } = await page()
+  const originalPatient = patients.find((p) => p.id === id)
+
+  if (!originalPatient) {
+    throw new Error(`Patient with id ${id} not found`)
+  }
+
+  const newPatient: Patient = {
+    ...originalPatient, 
+    id:crypto.randomUUID(),
+    fileVersion: originalPatient.fileVersion + nextId,
+    updated_at: new Date(),
+    updated_by: originalPatient.updated_by
+  }
+
+    patients.push(newPatient);
+    await setData(patients)
 }

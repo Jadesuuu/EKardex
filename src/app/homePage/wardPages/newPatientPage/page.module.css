@@ -1,6 +1,6 @@
 .NewPatient {
     background-color: #203162;
-    height: 235vh;
+    height: 250vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@
 .formPage {
     background-color: #FFF5EE;
     width: 60%;
-    height: 235%;
+    height: 250%;
 }
 .divider {
     display: flex;

@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Styles from './page.module.css'
-import { IconButton, Typography, Button, Box, TextField, InputLabel, Select, MenuItem, FormControl } from '@mui/material'
+import { IconButton, Typography, Button, Box, TextField, InputLabel, Select, MenuItem, FormControl, Grid } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HouseIcon from '@mui/icons-material/House';
 import Divider from '@mui/material/Divider';
@@ -18,7 +18,6 @@ const ViewKardexPage: React.FC = () => {
     const searchParams = useSearchParams();
     const ward = searchParams.get('ward');
     const patientNumber = searchParams.get('patientNumber');
-    const fileVersion = searchParams.get('fileVersion');
     const id = searchParams.get('id');
     ward?.toString()
     patientNumber?.toString()
@@ -71,6 +70,7 @@ const ViewKardexPage: React.FC = () => {
 
     const handleOnSaveClick = () => {
       //something
+
       setRowEditable(false);
     }
 
@@ -134,7 +134,7 @@ const ViewKardexPage: React.FC = () => {
     ];
     const patientColumn9: GridColDef<any>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date', valueGetter: (value) => new Date(value)},
-        {field: 'treatment', headerName: 'Treatments', width: 240, editable: rowEditable},
+        {field: 'treatment', headerName: 'Treatments', width: 237, editable: rowEditable},
         {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime', valueGetter: (value) => new Date(value)},
     ];
   return (
@@ -174,24 +174,24 @@ const ViewKardexPage: React.FC = () => {
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
                 <DataGrid columns={patientColumn4} rows={patients} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
             </div>
-            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', width: '98%'}}>
-                <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                    <DataGrid columns={patientColumn5} rows={patients[0] ? patients[0].diagnosticTests : []} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
-                </div>
-                <div style={{ height: 500, width: '79.2%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                    <DataGrid columns={patientColumn6} rows={patients[0] ? patients[0].ivFluidBloodTransMedsIncorporated : []} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
-                </div>
+            <div style={{marginBottom: '0.5vh', height: '500px', paddingLeft: '1.4vw'}}>
+                <Grid container spacing={1} >
+                    <Grid item xs={5.88}>
+                        <DataGrid columns={patientColumn5} rows={patients[0] ? patients[0].diagnosticTests : []} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                    </Grid>
+                    <Grid item xs={5.88}>
+                        <DataGrid columns={patientColumn6} rows={patients[0] ? patients[0].ivFluidBloodTransMedsIncorporated : []} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                    </Grid>
+                    <Grid item xs={5.88}>
+                        <DataGrid columns={patientColumn7} rows={patients[0] ? patients[0].mainMedications : []} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                    </Grid>
+                    <Grid item xs={5.88}>
+                        <DataGrid columns={patientColumn8} rows={patients[0] ? patients[0].prnMedications : []} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                    </Grid>
+                </Grid>
             </div>
-            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', width: '98%'}}>
-                <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                    <DataGrid columns={patientColumn7} rows={patients[0] ? patients[0].mainMedications: []} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
-                </div>
-                <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                    <DataGrid columns={patientColumn8} rows={patients[0] ? patients[0].prnMedications : []} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
-                </div>
-            </div>
-            <div style={{ height: 500, width: '100%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn9} rows={patients[0] ? patients[0].treatments : []} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{width: '47.75%', background: 'white'}} />
+            <div style={{ height: 1203, width: '89.9vw', paddingLeft: '30.4vw', paddingTop: '73.37vh', marginBottom: '0.5vh'}}>
+                <DataGrid columns={patientColumn9} rows={patients[0] ? patients[0].treatments: []} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{width: '47.75%', background: 'white'}} />
             </div>
         </div>
     </div>
