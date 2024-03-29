@@ -7,7 +7,8 @@ import HouseIcon from '@mui/icons-material/House';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Divider from '@mui/material/Divider';
 import {page as PatientData } from '@/app/components/getData'
-import { DataGrid, GridToolbar, GridRowSelectionModel, GridColDef, GridActionsCellItem, GridRowParams, GridEventListener } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridRowSelectionModel, GridColDef, GridActionsCellItem, GridRowParams, GridEventListener, useGridApiRef } from '@mui/x-data-grid';
+import { deleteRow } from '@/app/components/getData';
 import type {Patient as RowData} from '@/app/components/getData'
 import DeleteIcon from '@mui/icons-material/Delete';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
@@ -26,14 +27,7 @@ const KardexHistoryPage: React.FC = () => {
     const middleName = searchParams.get('middleName');
     const age = searchParams.get('age');
     const sex = searchParams.get('sex');
-    ward?.toString();
-    patientNumber?.toString();
-    roomNumber?.toString();
-    lastName?.toString();
-    givenName?.toString();
-    middleName?.toString();
-    age?.toString();
-    sex?.toString();
+    const dataGridRef = useGridApiRef()
 
     useEffect(() => {
       const fetchData = async () => {
@@ -49,8 +43,10 @@ const KardexHistoryPage: React.FC = () => {
       fetchData()
     },[]);
 
-    const handleDeleteOnClick = () => {
-      console.log('delete clicked')
+    const handleDeleteOnClick = async (event: React.MouseEvent<HTMLButtonElement>, id: any) => {
+      event.preventDefault()
+      await deleteRow(id)
+      setPatients(patients.filter(patient => patient.id !== id))
     }
 
     const handleDuplicateOnClick = () => {
@@ -62,7 +58,7 @@ const KardexHistoryPage: React.FC = () => {
       { field: 'updated_by', headerName: 'Updated By', width: 350, editable: false},
       { field: 'fileVersion', headerName: 'Version', width: 350, editable: false},
       { field: 'actions', type: 'actions', getActions: (params: GridRowParams) => [
-        <GridActionsCellItem icon={<DeleteIcon />} onClick={handleDeleteOnClick} label='Delete' />,
+        <GridActionsCellItem icon={<DeleteIcon />} onClick={(e) => (async() => handleDeleteOnClick(e, params.id))()} label='Delete' />,
         <GridActionsCellItem icon={<ContentCopyIcon />} onClick={handleDuplicateOnClick} label='Duplicate' />,
       ]}
     ]
@@ -123,6 +119,7 @@ const KardexHistoryPage: React.FC = () => {
         <div className={Styles.table}>
           <Box sx={{ height: 650, width: '85.1vw', marginTop: '0.5%', background: 'white'}}>
             <DataGrid
+              apiRef={dataGridRef}
               rows={patients} 
               columns={column2} 
               getRowId={(row) => row.id} 

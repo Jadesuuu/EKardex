@@ -39,7 +39,7 @@ export interface Patient {
   treatments: { id: string, treatment: string; date: string; time: string }[];
 }
 
-interface PatientRes {
+export interface PatientRes {
   patients: Patient[]
 }
 
@@ -47,4 +47,21 @@ export async function page(): Promise<PatientRes> {
   const file = await fs.readFile('./src/app/data/patient.json', 'utf-8');
   const data: Promise<PatientRes> = JSON.parse(file);
   return data
+}
+
+export async function createPatient(newPatient: Patient) {
+  const { patients } = await page()
+  patients.push(newPatient)
+  await setData(patients)
+}
+
+export async function setData(data: Patient[]) {
+  const jsonString = JSON.stringify({ patients: data })
+  await fs.writeFile('./src/app/data/patient.json', jsonString)
+}
+
+export async function deleteRow(id: string) {
+  const data = await page()
+  const filteredData = data.patients.filter(p => p.id !== id)
+  await setData(filteredData)
 }

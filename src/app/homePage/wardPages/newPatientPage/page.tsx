@@ -8,8 +8,8 @@ import Divider from '@mui/material/Divider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Checkbox from '@mui/material/Checkbox';
 import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp } from '@mui/x-data-grid';
-import type {Patient as RowData} from '@/app/components/getData'
-import {page as PatientData } from '@/app/components/getData'
+import type { Patient as RowData } from '@/app/components/getData'
+import {page as PatientData, createPatient } from '@/app/components/getData'
 
 const NewPatientPage: React.FC = () => {
     const [rowEditable, setRowEditable] = useState(true);
@@ -41,110 +41,108 @@ const NewPatientPage: React.FC = () => {
         );
       }
 
-    const initialRows: GridRowsProp<RowData> = [
-        {
-            id: crypto.randomUUID(), 
-            ward: '', 
-            fileVersion: 1,
-            roomNumber: '', 
-            lastName: '', 
-            givenName: '',
-            middleName: '', 
-            age: 0, 
-            sex: '', 
-            patientNumber: '', 
-            updated_at: new Date(),
-            updated_by: '', 
-            datetime_admitted: new Date(),
-            religion: '', 
-            doctor: '', 
-            chiefComplaint: '', 
-            diagnosis: '', 
-            diet: '', 
-            operation: '', 
-            activity: '', 
-            allergies: '', 
-            weightAndHeight: '', 
-            bloodType: '', 
-            phic: false,
-            others: '',
-            referral: '',
-            dateOfBirth: '', 
-            diagnosticTests: [
-                {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
-                {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
-                {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
-                {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
-                {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
-                {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
-                {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
-                {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
-                {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
-                {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
-            ],
-            ivFluidBloodTransMedsIncorporated: [
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
-                {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
-            ],
-            mainMedications: [
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+    const initialRows: GridRowsProp<RowData> = [{
+        id: crypto.randomUUID(), 
+        ward: '', 
+        fileVersion: 1,
+        roomNumber: '', 
+        lastName: '', 
+        givenName: '',
+        middleName: '', 
+        age: 0, 
+        sex: '', 
+        patientNumber: '', 
+        updated_at: new Date(),
+        updated_by: '', 
+        datetime_admitted: new Date(),
+        religion: '', 
+        doctor: '', 
+        chiefComplaint: '', 
+        diagnosis: '', 
+        diet: '', 
+        operation: '', 
+        activity: '', 
+        allergies: '', 
+        weightAndHeight: '', 
+        bloodType: '', 
+        phic: false,
+        others: '',
+        referral: '',
+        dateOfBirth: '', 
+        diagnosticTests: [
+            {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
+            {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
+            {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
+            {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
+            {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
+            {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
+            {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
+            {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
+            {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
+            {id: crypto.randomUUID(), diagnosticTest: '', date: '', date_done: ''},
+        ],
+        ivFluidBloodTransMedsIncorporated: [
+            {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+            {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+            {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+            {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+            {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+            {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+            {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+            {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+            {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+            {id: crypto.randomUUID(), ivfbtic: '', date: '', time_hooked: '', endorse: ''},
+        ],
+        mainMedications: [
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), mainMedication: '', date: '', time: ''},
 
-            ],
-            prnMedications: [
-                {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
-                {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''}
-            ],
-            treatments: [
-                {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
-                {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
-                {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
-                {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
-                {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
-                {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
-                {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
-                {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
-                {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
-                {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
-            ],
-        }
-    ];
+        ],
+        prnMedications: [
+            {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''},
+            {id: crypto.randomUUID(), prnMedication: '', date: '', time: ''}
+        ],
+        treatments: [
+            {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
+            {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
+            {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
+            {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
+            {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
+            {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
+            {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
+            {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
+            {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
+            {id: crypto.randomUUID(), treatment: '', date: '', time: ''},
+        ],
+    }]
 
-    const [patientData, setPatientData] = useState<any>(initialRows);
+    const [patientData, setPatientData] = useState<GridRowsProp<RowData>>(initialRows);
 
 
     const handleOnCellEditStop = (gridData: any) => {
@@ -155,8 +153,19 @@ const NewPatientPage: React.FC = () => {
         })
     }
 
-    const handleOnFormSubmit = () => {
-        console.log(patientData)
+    const handleOnFormSubmit = async () => {
+        /**
+         * TODO:
+         * * Update patientData state on input editing
+         * * Call await createPatient(patientData[0]) on Create Patient button press (shown below)
+         * 
+         * Currently saving empty values (initialRows) to database because
+         * there is no functionality for editing the initalRows and saving the
+         * edits to patientData state.
+         */
+
+        // await createPatient(patientData[0])
+       
     }
 
     ward?.toString()
@@ -242,7 +251,7 @@ const NewPatientPage: React.FC = () => {
             </div>
         </div>
             <div style={{marginTop: '13vh', marginBottom: '0.5vh', display:'flex', justifyContent: 'flex-end', paddingRight: '1.4vw'}}>
-                <Button variant='contained' sx={{borderRadius: 35, fontWeight: 'bold', background: '#203162'}} onClick={handleOnFormSubmit}>Create Patient</Button>
+                <Button variant='contained' sx={{borderRadius: 35, fontWeight: 'bold', background: '#203162'}} onClick={() => (async() => handleOnFormSubmit())()}>Create Patient</Button>
             </div>
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
                 <DataGrid columns={patientColumn1} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
