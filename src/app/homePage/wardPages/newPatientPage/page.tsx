@@ -7,8 +7,8 @@ import HouseIcon from '@mui/icons-material/House';
 import Divider from '@mui/material/Divider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Checkbox from '@mui/material/Checkbox';
-import { DataGrid, GridCellParams, GridColDef, GridRenderCellParams, GridRowEditStopParams, GridRowsProp, GridApi } from '@mui/x-data-grid';
-import type { Patient as RowData } from '@/app/components/getData'
+import { DataGrid, GridCellParams, GridColDef, GridRenderCellParams, GridRowEditStopParams, GridRowsProp, GridApi, GridCellEditStartParams, GridCellEditStopParams, GridRowModesModel  } from '@mui/x-data-grid';
+import type { Patient, Patient as RowData } from '@/app/components/getData'
 import {page as PatientData, createPatient } from '@/app/components/getData'
 
 const NewPatientPage: React.FC = () => {
@@ -144,13 +144,41 @@ const NewPatientPage: React.FC = () => {
     }]
 
     const [patientData, setPatientData] = useState<GridRowsProp<RowData>>(initialRows);
+    const [editedPatientData, setEditedPatientData] = useState<Record<string, Partial<RowData>>>({})
 
-    const handleCellEditStop = (params: any) => {
-        const updatedRows = patientData.map((row) =>
-            row.id === params.id ? { ...row, ...params.value } : row
-        );
-        setPatientData(updatedRows);
+    const rowModesModel : GridRowModesModel = {
+        ...patientData.reduce((acc, row) => ({
+            ...acc, [row.id]: 'view'
+        }), {})
+    }
+
+    const handleOnEditStart = () => {
+        //do something for input validation... 
+    }
+
+    const handleCellEditStop = (params: GridCellEditStopParams<RowData>) => {
+        const {id, field, value} = params
+        setEditedPatientData(prevData => ({
+            ...prevData, 
+            [`${id}-${field}`]: value,
+        }))
     };
+
+    const combineEditedData = (): RowData[] => {
+        const newData = patientData.map(patient => {
+            const edits = Object.entries(editedPatientData)
+            .filter(([key]) => key.startsWith(patient.id))
+            .reduce((acc, [key, value]) => ({ ...acc, [key.split('-')[1]]: value }), {});
+            return {...patient, ...edits}
+        }) 
+        return newData
+    }
+
+    const updatedPatientData = () => {
+        const newData = combineEditedData()
+        setPatientData(newData);
+        console.log(patientData)
+    }
 
     const handleOnFormSubmit = async () => {
         /**
@@ -253,7 +281,7 @@ const NewPatientPage: React.FC = () => {
                 <Button variant='contained' sx={{borderRadius: 35, fontWeight: 'bold', background: '#203162'}} onClick={() => (async() => handleOnFormSubmit())()}>Create Patient</Button>
             </div>
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn1} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} onCellEditStop={handleCellEditStop}/>
+                <DataGrid columns={patientColumn1} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} onCellEditStop={(params: GridCellEditStopParams<RowData, any, any>) => handleCellEditStop(params)}/>
             </div >
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
                 <DataGrid columns={patientColumn2} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
