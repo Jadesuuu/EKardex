@@ -1,22 +1,52 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Styles from './page.module.css'
-import { IconButton, Typography, Button, Box, TextField, InputLabel, Select, MenuItem, FormControl, Grid } from '@mui/material'
+import { IconButton, Typography, Button, Grid } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HouseIcon from '@mui/icons-material/House';
 import Divider from '@mui/material/Divider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Checkbox from '@mui/material/Checkbox';
-import { DataGrid, GridCellParams, GridColDef, GridRenderCellParams, GridRowEditStopParams, GridRowsProp, GridApi, GridCellEditStartParams, GridCellEditStopParams, GridRowModesModel  } from '@mui/x-data-grid';
-import type { Patient, Patient as RowData } from '@/app/components/getData'
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp  } from '@mui/x-data-grid';
+import type { Patient as RowData } from '@/app/components/getData'
 import {page as PatientData, createPatient } from '@/app/components/getData'
 
 const NewPatientPage: React.FC = () => {
-    const gridRef = React.useRef<GridApi | null>(null)
     const [rowEditable, setRowEditable] = useState(true);
     const router = useRouter();
     const searchParams = useSearchParams();
     const ward = searchParams.get('ward');
+
+    interface SubTableDefaultProps {
+        id: string
+        date: string
+    }
+
+    interface DiagnosticTestsProps extends SubTableDefaultProps {
+        diagnosticTest: string
+        date_done: string
+    }
+
+    interface IFBTIProps extends SubTableDefaultProps {
+        ivfbtic: string
+        time_hooked: string
+        endorse: string
+    }
+
+    interface MainMedicationsProps extends SubTableDefaultProps {
+        mainMedication: string
+        time: string
+    }
+
+    interface PRNMedicationsProps extends SubTableDefaultProps {
+        prnMedication: string
+        time: string
+    }
+
+    interface TreatmentsProps extends SubTableDefaultProps {
+        treatment: string
+        time: string
+    }
 
     function RenderCheckBox(props: GridRenderCellParams<any, boolean>) {
         const [checked, setChecked] = React.useState(props.value); 
@@ -144,55 +174,28 @@ const NewPatientPage: React.FC = () => {
     }]
 
     const [patientData, setPatientData] = useState<GridRowsProp<RowData>>(initialRows);
-    const [editedPatientData, setEditedPatientData] = useState<Record<string, Partial<RowData>>>({})
 
-    const rowModesModel : GridRowModesModel = {
-        ...patientData.reduce((acc, row) => ({
-            ...acc, [row.id]: 'view'
-        }), {})
+    const handleOnFormSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        await createPatient(patientData[0])
+        router.push(`/homePage/wardPages?ward=Medical Ward`);
     }
 
-    const handleOnEditStart = () => {
-        //do something for input validation... 
-    }
-
-    const handleCellEditStop = (params: GridCellEditStopParams<RowData>) => {
-        const {id, field, value} = params
-        setEditedPatientData(prevData => ({
-            ...prevData, 
-            [`${id}-${field}`]: value,
-        }))
-    };
-
-    const combineEditedData = (): RowData[] => {
-        const newData = patientData.map(patient => {
-            const edits = Object.entries(editedPatientData)
-            .filter(([key]) => key.startsWith(patient.id))
-            .reduce((acc, [key, value]) => ({ ...acc, [key.split('-')[1]]: value }), {});
-            return {...patient, ...edits}
-        }) 
-        return newData
-    }
-
-    const updatedPatientData = () => {
-        const newData = combineEditedData()
-        setPatientData(newData);
-        console.log(patientData)
-    }
-
-    const handleOnFormSubmit = async () => {
-        /**
-         * TODO:
-         * * Update patientData state on input editing
-         * * Call await createPatient(patientData[0]) on Create Patient button press (shown below)
-         * 
-         * Currently saving empty values (initialRows) to database because
-         * there is no functionality for editing the initalRows and saving the
-         * edits to patientData state.
-         */
-
-        // await createPatient(patientData[0])
-        console.log(patientData)
+    const handleProcessRowUpdate = (updatedRow: RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps) => {
+        if ("diagnosticTest" in updatedRow) {
+            setPatientData([{ ...patientData[0], diagnosticTests: patientData[0].diagnosticTests.map(dt => dt.id === updatedRow.id ? updatedRow : dt)}])
+        } else if ("ivfbtic" in updatedRow) {
+            setPatientData([{ ...patientData[0], ivFluidBloodTransMedsIncorporated: patientData[0].ivFluidBloodTransMedsIncorporated.map(iv => iv.id === updatedRow.id ? updatedRow : iv)}])
+        } else if ("mainMedication" in updatedRow) {
+            setPatientData([{ ...patientData[0], mainMedications: patientData[0].mainMedications.map(m => m.id === updatedRow.id ? updatedRow : m)}])
+        } else if ("prnMedication" in updatedRow) {
+            setPatientData([{ ...patientData[0], prnMedications: patientData[0].prnMedications.map(prn => prn.id === updatedRow.id ? updatedRow : prn)}])
+        } else if ("treatment" in updatedRow) {
+            setPatientData([{ ...patientData[0], treatments: patientData[0].treatments.map(t => t.id === updatedRow.id ? updatedRow : t)}])
+        } else {
+            setPatientData([updatedRow])
+        }
+        return updatedRow
     }
 
     ward?.toString()
@@ -200,8 +203,8 @@ const NewPatientPage: React.FC = () => {
         router.push('/homePage')
     }
 
-    const patientColumn1: GridColDef<RowData>[] = [
-        {field: 'patientNumber', headerName: 'Patient #', width: 85, editable: rowEditable },
+    const patientColumn1: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
+        {field: 'patientNumber', headerName: 'Patient #', width: 85, editable: rowEditable, type: "number"},
         {field: 'roomNumber', headerName: 'Room #', width: 75, editable: rowEditable},
         {field: 'lastName', headerName: 'Last Name', width: 100, editable: rowEditable},
         {field: 'givenName', headerName: 'Given Name', width: 210, editable: rowEditable},
@@ -211,7 +214,7 @@ const NewPatientPage: React.FC = () => {
         {field: 'datetime_admitted', headerName: 'Date/Time Admitted', width: 190, editable: rowEditable, type: 'dateTime' },
         {field: 'dateOfBirth', headerName: 'Date of Birth', width: 130, editable: rowEditable, type: 'date' }
     ];
-    const patientColumn2: GridColDef<RowData>[] = [
+    const patientColumn2: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'religion', headerName: 'Religion', width: 80, editable: rowEditable},
         {field: 'phic', headerName: 'PHIC', width: 80, editable: false, renderCell: RenderCheckBox},
         {field: 'ward', headerName: 'Ward', width: 200, editable: rowEditable, type:'singleSelect', 
@@ -220,12 +223,12 @@ const NewPatientPage: React.FC = () => {
         {field: 'referral', headerName: 'Referral', width: 258, editable: rowEditable},
         {field: 'others', headerName: 'Others', width: 295, editable: rowEditable},
     ];  
-    const patientColumn3: GridColDef<RowData>[] = [
+    const patientColumn3: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'chiefComplaint', headerName: 'Chief Complaint', width: 360, editable: rowEditable},
         {field: 'diagnosis', headerName: 'Impression/Diagnosis', width: 355, editable: rowEditable},
         {field: 'operation', headerName: 'Operation/Performed Date', width: 355, editable: rowEditable},
     ];
-    const patientColumn4: GridColDef<RowData>[] = [
+    const patientColumn4: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'diet', headerName: 'Diet', width: 200, editable: rowEditable},
         {field: 'activity', headerName: 'Activity', width: 200, editable: rowEditable},
         {field: 'allergies', headerName: 'Allergies', width: 200, editable: rowEditable},
@@ -233,30 +236,30 @@ const NewPatientPage: React.FC = () => {
         {field: 'bloodType', headerName: 'Blood Type', width: 200, editable: rowEditable, type:'singleSelect', 
         valueOptions:['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-' ]}
     ];
-    const patientColumn5: GridColDef<any>[] = [
+    const patientColumn5: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'diagnosticTest', headerName: 'Diagnostic Test', width: 310, editable: rowEditable, type: 'string'},
+        {field: 'diagnosticTests', headerName: 'Diagnostic Test', width: 310, editable: rowEditable, type: 'string'},
         {field: 'date_done', headerName: 'Date done', width: 100, editable: rowEditable, type:'date'},
     ];
-    const patientColumn6: GridColDef<any>[] = [
+    const patientColumn6: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'ivfbtic', headerName: 'IVF/BT/INCORPORATED MEDS', width: 240, editable: rowEditable},
+        {field: 'ivFluidBloodTransMedsIncorporated', headerName: 'IVF/BT/INCORPORATED MEDS', width: 240, editable: rowEditable},
         {field: 'time_hooked', headerName: 'Time hooked', width: 180, editable: rowEditable, type:'dateTime'},
         {field: 'endorse', headerName: 'To Endorse, VS', width: 150, editable: rowEditable}
     ];
-    const patientColumn7: GridColDef<any>[] = [
+    const patientColumn7: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'mainMedication', headerName: 'Main Medication', width: 310, editable: rowEditable},
+        {field: 'mainMedications', headerName: 'Main Medication', width: 310, editable: rowEditable},
         {field: 'time', headerName: 'Time', width: 100, editable: rowEditable},
     ];
-    const patientColumn8: GridColDef<any>[] = [
+    const patientColumn8: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
         {field: 'prnMedication', headerName: 'PRN Medication', width: 240, editable: rowEditable},
         {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime'},
     ];
-    const patientColumn9: GridColDef<any>[] = [
+    const patientColumn9: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'treatment', headerName: 'Treatments', width: 237, editable: rowEditable},
+        {field: 'treatments', headerName: 'Treatments', width: 237, editable: rowEditable},
         {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime'},
     ];
   return (
@@ -278,38 +281,38 @@ const NewPatientPage: React.FC = () => {
             </div>
         </div>
             <div style={{marginTop: '13vh', marginBottom: '0.5vh', display:'flex', justifyContent: 'flex-end', paddingRight: '1.4vw'}}>
-                <Button variant='contained' sx={{borderRadius: 35, fontWeight: 'bold', background: '#203162'}} onClick={() => (async() => handleOnFormSubmit())()}>Create Patient</Button>
+                <Button variant='contained' sx={{borderRadius: 35, fontWeight: 'bold', background: '#203162'}} onClick={(e) => (async() => handleOnFormSubmit(e))()}>Create Patient</Button>
             </div>
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn1} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} onCellEditStop={(params: GridCellEditStopParams<RowData, any, any>) => handleCellEditStop(params)}/>
+                <DataGrid columns={patientColumn1} rows={patientData as RowData[]} processRowUpdate={handleProcessRowUpdate} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
             </div >
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn2} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                <DataGrid columns={patientColumn2} rows={patientData as RowData[]} processRowUpdate={handleProcessRowUpdate} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
             </div>
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn3} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                <DataGrid columns={patientColumn3} rows={patientData as RowData[]} processRowUpdate={handleProcessRowUpdate} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
             </div>
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn4} rows={initialRows} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                <DataGrid columns={patientColumn4} rows={patientData as RowData[]} processRowUpdate={handleProcessRowUpdate} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
             </div>
             <div style={{marginBottom: '0.5vh', height: '500px', paddingLeft: '1.4vw'}}>
                 <Grid container spacing={1} >
                     <Grid item xs={5.88}>
-                        <DataGrid columns={patientColumn5} rows={initialRows[0].diagnosticTests} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                        <DataGrid columns={patientColumn5} rows={patientData[0].diagnosticTests as DiagnosticTestsProps[]} processRowUpdate={handleProcessRowUpdate} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
                     </Grid>
                     <Grid item xs={5.88}>
-                        <DataGrid columns={patientColumn6} rows={initialRows[0].ivFluidBloodTransMedsIncorporated} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                        <DataGrid columns={patientColumn6} rows={patientData[0].ivFluidBloodTransMedsIncorporated as IFBTIProps[]} processRowUpdate={handleProcessRowUpdate} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
                     </Grid>
                     <Grid item xs={5.88}>
-                        <DataGrid columns={patientColumn7} rows={initialRows[0].mainMedications} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                        <DataGrid columns={patientColumn7} rows={patientData[0].mainMedications as MainMedicationsProps[]} processRowUpdate={handleProcessRowUpdate} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
                     </Grid>
                     <Grid item xs={5.88}>
-                        <DataGrid columns={patientColumn8} rows={initialRows[0].prnMedications} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
+                        <DataGrid columns={patientColumn8} rows={patientData[0].prnMedications as PRNMedicationsProps[]} processRowUpdate={handleProcessRowUpdate} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
                     </Grid>
                 </Grid>
             </div>
             <div style={{ height: 1203, width: '89.9vw', paddingLeft: '30.4vw', paddingTop: '73.37vh', marginBottom: '0.5vh'}}>
-                <DataGrid columns={patientColumn9} rows={initialRows[0].treatments} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{width: '47.75%', background: 'white'}} />
+                <DataGrid columns={patientColumn9} rows={patientData[0].treatments as TreatmentsProps[]} processRowUpdate={handleProcessRowUpdate} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{width: '47.75%', background: 'white'}} />
             </div>
         </div>
     </div>
