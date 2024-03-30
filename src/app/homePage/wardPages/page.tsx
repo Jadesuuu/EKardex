@@ -43,7 +43,7 @@ const WardPage: React.FC = () => {
         }
       }
       fetchData()
-    },[]);
+    },[ward]);
 
     const handleOnRowClick: GridEventListener<'rowClick'> = (params) => {
       router.push(`/homePage/wardPages/kardexHistoryPage?ward=${ward}

@@ -66,7 +66,7 @@ const ViewKardexPage: React.FC = () => {
         }
       }
       fetchData()
-    },[]);
+    },[id]);
 
     function RenderCheckBox(props: GridRenderCellParams<any, boolean>) {
         const [checked, setChecked] = React.useState(props.value); 

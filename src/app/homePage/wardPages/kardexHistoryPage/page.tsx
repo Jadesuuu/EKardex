@@ -46,7 +46,7 @@ const KardexHistoryPage: React.FC = () => {
         setForceFetch(false)
       }
       fetchData()
-    },[forceFetch]);
+    },[forceFetch, patientNumber]);
 
     const handleDeleteOnClick = async (event: React.MouseEvent<HTMLButtonElement>, id: any) => {
       event.preventDefault()
@@ -65,8 +65,8 @@ const KardexHistoryPage: React.FC = () => {
       { field: 'updated_by', headerName: 'Updated By', width: 350, editable: false},
       { field: 'fileVersion', headerName: 'Version', width: 350, editable: false},
       { field: 'actions', type: 'actions', getActions: (params: GridRowParams) => [
-        <GridActionsCellItem icon={<ContentCopyIcon />} onClick={(e) => (async() => handleDuplicateOnClick(e, params.id))()} label='Duplicate' />,
-        <GridActionsCellItem icon={<DeleteIcon />} onClick={(e) => (async() => handleDeleteOnClick(e, params.id))()} label='Delete' />
+        <GridActionsCellItem key={`duplicate-${params.id}`} icon={<ContentCopyIcon />} onClick={(e) => (async() => handleDuplicateOnClick(e, params.id))()} label='Duplicate' />,
+        <GridActionsCellItem key={`delete-${params.id}`} icon={<DeleteIcon />} onClick={(e) => (async() => handleDeleteOnClick(e, params.id))()} label='Delete' />
       ]}
     ]
 
