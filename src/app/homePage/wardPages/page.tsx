@@ -1,4 +1,5 @@
 'use client'
+import { Suspense } from 'react';
 import React, { useEffect, useState } from 'react'
 import Styles from './page.module.css'
 import { IconButton, Typography, Button, Box } from '@mui/material'
@@ -28,7 +29,6 @@ const WardPage: React.FC = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const ward = searchParams.get('ward');
-    ward?.toString()
 
     useEffect(() => {
       const fetchData = async () => {
@@ -87,7 +87,9 @@ const WardPage: React.FC = () => {
         <div className={Styles.wardHeader}>
             <IconButton onClick={handleHome} disabled={isLoading}>
                 <HouseIcon sx={{background: '#203162', color: '#86C2F8', borderRadius: 35, padding: 0.36, fontSize: '50px'}}/>
+                <Suspense fallback={<div>Loading ward data...</div>}>
                 <Typography variant='h2' sx={{color: '#203162', fontWeight: 'bold', paddingLeft: '1vw'}}>{ward}</Typography>
+                </Suspense>
             </IconButton>
             <div className={Styles.iconAndName}>
                 <IconButton sx={{color: '#ABD7FF', paddingTop: '3.5vh', marginLeft:'50.2vw'}} disabled={isLoading}>

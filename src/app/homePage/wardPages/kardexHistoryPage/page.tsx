@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 import Styles from './page.module.css'
 import { IconButton, Typography, Button, Box, Grid } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -86,7 +86,9 @@ const KardexHistoryPage: React.FC = () => {
         <div className={Styles.wardHeader}>
             <IconButton onClick={handleHome} disabled={isLoading}>
                 <HouseIcon sx={{background: 'white', color: '#203162', borderRadius: 35, padding: 0.36, fontSize: '50px'}}/>
+                <Suspense fallback={<div>Loading ward data...</div>}>
                 <Typography variant='h2' sx={{color: 'white', fontWeight: 'bold', paddingLeft: '1vw'}}>{ward}</Typography>
+                </Suspense>
             </IconButton>
             <div className={Styles.iconAndName}>
                 <IconButton sx={{color: 'white', paddingTop: '3.5vh', marginLeft:'50.2vw'}} disabled={isLoading}>
@@ -100,6 +102,7 @@ const KardexHistoryPage: React.FC = () => {
         </div>
         <div className={Styles.patientNameTitle}>
           <Grid container spacing={1} sx={{paddingLeft: '8vw', paddingTop: '2vh', paddingBottom: '2vh'}}> 
+          <Suspense fallback={<div>Loading ward data...</div>}>
             <Grid item xs={1}>
               <Typography variant='h4' sx={{color: 'white', fontWeight: 'bold'}}>{roomNumber} </Typography>
             </Grid>
@@ -121,6 +124,7 @@ const KardexHistoryPage: React.FC = () => {
             <Grid item xs={1}>
               <Typography variant='h4'sx={{color: 'white', fontWeight: 'bold'}}>{patientNumber} </Typography>
             </Grid>
+            </Suspense>
           </Grid>
         </div>
         <div className={Styles.table}>
