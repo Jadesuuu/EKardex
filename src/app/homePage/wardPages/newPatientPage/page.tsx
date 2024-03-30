@@ -178,7 +178,7 @@ const NewPatientPage: React.FC = () => {
     const handleOnFormSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         await createPatient(patientData[0])
-        router.push(`/homePage/wardPages?ward=Medical Ward`);
+        router.push(`/homePage/wardPages?ward=${ward}`);
     }
 
     const handleProcessRowUpdate = (updatedRow: RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps) => {

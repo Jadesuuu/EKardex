@@ -69,6 +69,23 @@ export async function deleteRow(id: string) {
   await setData(filteredData)
 }
 
+export async function editPatient(id: string, updatedPatientData: Patient) {
+  const { patients } = await page();
+  const patientIndex = patients.findIndex((p) => p.id === id);
+
+  if (patientIndex === -1) {
+    throw new Error(`Patient with id ${id} not found`);
+  }
+
+  patients[patientIndex] = {
+    ...patients[patientIndex],
+    ...updatedPatientData,
+    updated_at: new Date(),
+  };
+
+  await setData(patients);
+}
+
 export async function duplicateRow(id: string) {
   const { patients } = await page()
   const originalPatient = patients.find((p) => p.id === id)
