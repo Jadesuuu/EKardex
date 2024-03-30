@@ -182,6 +182,7 @@ const NewPatientPage: React.FC = () => {
     }
 
     const handleProcessRowUpdate = (updatedRow: RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps) => {
+        console.log(updatedRow)
         if ("diagnosticTest" in updatedRow) {
             setPatientData([{ ...patientData[0], diagnosticTests: patientData[0].diagnosticTests.map(dt => dt.id === updatedRow.id ? updatedRow : dt)}])
         } else if ("ivfbtic" in updatedRow) {
@@ -238,18 +239,18 @@ const NewPatientPage: React.FC = () => {
     ];
     const patientColumn5: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'diagnosticTests', headerName: 'Diagnostic Test', width: 310, editable: rowEditable, type: 'string'},
+        {field: 'diagnosticTest', headerName: 'Diagnostic Test', width: 310, editable: rowEditable, type: 'string'},
         {field: 'date_done', headerName: 'Date done', width: 100, editable: rowEditable, type:'date'},
     ];
     const patientColumn6: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'ivFluidBloodTransMedsIncorporated', headerName: 'IVF/BT/INCORPORATED MEDS', width: 240, editable: rowEditable},
+        {field: 'ivfbtic', headerName: 'IVF/BT/INCORPORATED MEDS', width: 240, editable: rowEditable},
         {field: 'time_hooked', headerName: 'Time hooked', width: 180, editable: rowEditable, type:'dateTime'},
         {field: 'endorse', headerName: 'To Endorse, VS', width: 150, editable: rowEditable}
     ];
     const patientColumn7: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'mainMedications', headerName: 'Main Medication', width: 310, editable: rowEditable},
+        {field: 'mainMedication', headerName: 'Main Medication', width: 310, editable: rowEditable},
         {field: 'time', headerName: 'Time', width: 100, editable: rowEditable},
     ];
     const patientColumn8: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
@@ -259,7 +260,7 @@ const NewPatientPage: React.FC = () => {
     ];
     const patientColumn9: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'treatments', headerName: 'Treatments', width: 237, editable: rowEditable},
+        {field: 'treatment', headerName: 'Treatments', width: 237, editable: rowEditable},
         {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime'},
     ];
   return (
