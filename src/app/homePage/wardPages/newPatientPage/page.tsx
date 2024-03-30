@@ -198,7 +198,6 @@ const NewPatientPage: React.FC = () => {
         return updatedRow
     }
 
-    ward?.toString()
     const handleHome = () => {
         router.push('/homePage')
     }
@@ -250,7 +249,7 @@ const NewPatientPage: React.FC = () => {
     const patientColumn7: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
         {field: 'mainMedications', headerName: 'Main Medication', width: 310, editable: rowEditable},
-        {field: 'time', headerName: 'Time', width: 100, editable: rowEditable},
+        {field: 'time', headerName: 'Time', width: 115, editable: rowEditable},
     ];
     const patientColumn8: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
