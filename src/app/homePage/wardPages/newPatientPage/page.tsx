@@ -199,7 +199,6 @@ const NewPatientPage: React.FC = () => {
         return updatedRow
     }
 
-    ward?.toString()
     const handleHome = () => {
         router.push('/homePage')
     }

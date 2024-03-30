@@ -7,9 +7,10 @@ import HouseIcon from '@mui/icons-material/House';
 import Divider from '@mui/material/Divider';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Checkbox from '@mui/material/Checkbox';
-import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, GridCellEditStartParams, GridCellEditStopParams, GridRowModesModel } from '@mui/x-data-grid';
 import type {Patient as RowData} from '@/app/components/getData'
 import {page as PatientData } from '@/app/components/getData'
+import { format } from 'date-fns';
 
 const ViewKardexPage: React.FC = () => {
     const [rowEditable, setRowEditable] = useState(false);
@@ -60,6 +61,21 @@ const ViewKardexPage: React.FC = () => {
         );
       }
 
+    const formatDateTime = (date: Date) => {
+        if (!date) {
+          return ''; 
+        }
+        return format(date, 'MM/dd/yyyy, HH:mm:ss');
+    };
+
+    const formatDate = (date: Date) => {
+    if (!date) {
+        return ''; 
+    }
+    return format(date, 'MM/dd/yyyy');
+    };
+
+
     const handleOnCellEditStop = () => {
         console.log()
     }
@@ -86,8 +102,20 @@ const ViewKardexPage: React.FC = () => {
         {field: 'middleName', headerName: 'Middle Name', width: 110, editable: rowEditable},
         {field: 'age', headerName: 'Age', width: 70, editable: rowEditable, type: 'number'},
         {field: 'sex', headerName: 'Sex', width: 80, editable: rowEditable, type: 'singleSelect', valueOptions: ['F', 'M']}, 
-        {field: 'datetime_admitted', headerName: 'Date/Time Admitted', width: 190, editable: rowEditable, type: 'dateTime', valueGetter: (value) => new Date(value) },
-        {field: 'dateOfBirth', headerName: 'Date of Birth', width: 130, editable: rowEditable, type: 'date', valueGetter: (value) => new Date(value) }
+        {field: 'datetime_admitted', headerName: 'Date/Time Admitted', width: 190, editable: rowEditable, type: 'dateTime', valueFormatter: (value) => {if(value === '') {
+            return '';
+        } else {
+            const date = new Date(value);
+            return formatDateTime(value)
+        }
+    }},
+        {field: 'dateOfBirth', headerName: 'Date of Birth', width: 130, editable: rowEditable, type: 'date', valueFormatter: (value) => {if(value === '') {
+            return '';
+        } else {
+            const date = new Date(value);
+            return formatDate(value)
+        }
+    }}
     ];
     const patientColumn2: GridColDef<RowData>[] = [
         {field: 'religion', headerName: 'Religion', width: 80, editable: rowEditable},
@@ -112,30 +140,84 @@ const ViewKardexPage: React.FC = () => {
         valueOptions:['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-' ]}
     ];
     const patientColumn5: GridColDef<any>[] = [
-        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date', valueGetter: (value) => new Date(value)},
+        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date', valueFormatter: (value) => {if(value === '') {
+            return '';
+        } else {
+            const date = new Date(value);
+            return formatDate(value)
+        }
+    }},
         {field: 'diagnosticTest', headerName: 'Diagnostic Test', width: 310, editable: rowEditable, type: 'string'},
-        {field: 'date_done', headerName: 'Date done', width: 100, editable: rowEditable, type:'date', valueGetter: (value) => new Date(value)},
+        {field: 'date_done', headerName: 'Date done', width: 100, editable: rowEditable, type:'date', valueFormatter: (value) => {if(value === '') {
+            return '';
+        } else {
+            const date = new Date(value);
+            return formatDate(value)
+        }
+    }},
     ];
     const patientColumn6: GridColDef<any>[] = [
-        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date', valueGetter: (value) => new Date(value)},
+        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date', valueFormatter: (value) => {if(value === '') {
+            return '';
+        } else {
+            const date = new Date(value);
+            return formatDate(value)
+        }
+    }},
         {field: 'ivfbtic', headerName: 'IVF/BT/INCORPORATED MEDS', width: 240, editable: rowEditable},
-        {field: 'time_hooked', headerName: 'Time hooked', width: 180, editable: rowEditable, type:'dateTime', valueGetter: (value) => new Date(value)},
+        {field: 'time_hooked', headerName: 'Time hooked', width: 180, editable: rowEditable, type:'dateTime', valueFormatter: (value) => {if(value === '') {
+            return '';
+        } else {
+            const date = new Date(value);
+            return formatDateTime(value)
+        }
+    }},
         {field: 'endorse', headerName: 'To Endorse, VS', width: 150, editable: rowEditable}
     ];
     const patientColumn7: GridColDef<any>[] = [
-        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date', valueGetter: (value) => new Date(value)},
+        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date', valueFormatter: (value) => {if(value === '') {
+            return '';
+        } else {
+            const date = new Date(value);
+            return formatDate(value)
+        }
+    }},
         {field: 'mainMedication', headerName: 'Main Medication', width: 310, editable: rowEditable},
-        {field: 'time', headerName: 'Time', width: 100, editable: rowEditable},
+        {field: 'time', headerName: 'Time', width: 105, editable: rowEditable},
     ];
     const patientColumn8: GridColDef<any>[] = [
-        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date', valueGetter: (value) => new Date(value)},
+        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date', valueFormatter: (value) => {if(value === '') {
+            return '';
+        } else {
+            const date = new Date(value);
+            return formatDate(value)
+        }
+    }},
         {field: 'prnMedication', headerName: 'PRN Medication', width: 240, editable: rowEditable},
-        {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime', valueGetter: (value) => new Date(value)},
+        {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime', valueFormatter: (value) => {if(value === '') {
+            return '';
+        } else {
+            const date = new Date(value);
+            return formatDateTime(value)
+        }
+    }},
     ];
     const patientColumn9: GridColDef<any>[] = [
-        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date', valueGetter: (value) => new Date(value)},
+        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date', valueFormatter: (value) => {if(value === '') {
+            return '';
+        } else {
+            const date = new Date(value);
+            return formatDate(value)
+        }
+    }},
         {field: 'treatment', headerName: 'Treatments', width: 237, editable: rowEditable},
-        {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime', valueGetter: (value) => new Date(value)},
+        {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime', valueFormatter: (value) => {if(value === '') {
+            return '';
+        } else {
+            const date = new Date(value);
+            return formatDateTime(value)
+        }
+    }},
     ];
   return (
     <div className={Styles.NewPatient}>

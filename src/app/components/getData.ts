@@ -52,6 +52,7 @@ export async function page(): Promise<PatientRes> {
 }
 
 export async function createPatient(newPatient: Patient) {
+  newPatient.updated_by = 'A2 Benner'
   const { patients } = await page()
   patients.push(newPatient)
   await setData(patients)
