@@ -48,6 +48,7 @@ export interface PatientRes {
 }
 
 export async function page(): Promise<PatientRes> {
+  console.log(__dirname)
   const file = await fs.readFile(`${process.env.NEXT_PUBLIC_DB_DIR}`, 'utf-8');
   const data: Promise<PatientRes> = JSON.parse(file);
   return data
