@@ -1,7 +1,9 @@
 'use server'
+require('dotenv').config()
 import { randomUUID } from 'crypto';
 import Styles from './page.module.css'
 import {promises as fs} from 'fs'
+
 
 let nextId = 1;
 let updatedDate = new Date();
@@ -46,7 +48,7 @@ export interface PatientRes {
 }
 
 export async function page(): Promise<PatientRes> {
-  const file = await fs.readFile(__dirname + '/public/patient.json', 'utf-8');
+  const file = await fs.readFile(`${process.env.NEXT_PUBLIC_DB_DIR}`, 'utf-8');
   const data: Promise<PatientRes> = JSON.parse(file);
   return data
 }
@@ -60,7 +62,7 @@ export async function createPatient(newPatient: Patient) {
 
 export async function setData(data: Patient[]) {
   const jsonString = JSON.stringify({ patients: data })
-  await fs.writeFile('./public/patient.json', jsonString)
+  await fs.writeFile(`${process.env.NEXT_PUBLIC_DB_DIR}`, jsonString)
 }
 
 export async function deleteRow(id: string) {
