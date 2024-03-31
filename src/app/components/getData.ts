@@ -8,6 +8,8 @@ import {promises as fs} from 'fs'
 let nextId = 1;
 let updatedDate = new Date();
 
+const dbDir = process.cwd()
+
 export interface Patient {
   id: string;
   ward: string;
@@ -49,7 +51,7 @@ export interface PatientRes {
 
 export async function page(): Promise<PatientRes> {
   console.log(__dirname)
-  const file = await fs.readFile(`${process.env.NEXT_PUBLIC_DB_DIR}`, 'utf-8');
+  const file = await fs.readFile(`${dbDir}/data/patient.json`, 'utf-8');
   const data: Promise<PatientRes> = JSON.parse(file);
   return data
 }
