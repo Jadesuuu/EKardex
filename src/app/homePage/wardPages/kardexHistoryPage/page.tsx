@@ -82,6 +82,7 @@ const KardexHistoryPage: React.FC = () => {
     };
 
   return (
+    <Suspense fallback={<div>Loading ward data...</div>}>
     <div className={Styles.WardPage}>
         <div className={Styles.wardHeader}>
             <IconButton onClick={handleHome} disabled={isLoading}>
@@ -102,7 +103,6 @@ const KardexHistoryPage: React.FC = () => {
         </div>
         <div className={Styles.patientNameTitle}>
           <Grid container spacing={1} sx={{paddingLeft: '8vw', paddingTop: '2vh', paddingBottom: '2vh'}}> 
-          <Suspense fallback={<div>Loading ward data...</div>}>
             <Grid item xs={1}>
               <Typography variant='h4' sx={{color: 'white', fontWeight: 'bold'}}>{roomNumber} </Typography>
             </Grid>
@@ -124,7 +124,6 @@ const KardexHistoryPage: React.FC = () => {
             <Grid item xs={1}>
               <Typography variant='h4'sx={{color: 'white', fontWeight: 'bold'}}>{patientNumber} </Typography>
             </Grid>
-            </Suspense>
           </Grid>
         </div>
         <div className={Styles.table}>
@@ -155,6 +154,7 @@ const KardexHistoryPage: React.FC = () => {
           </Box>
         </div>
     </div>
+    </Suspense>
   )
 }
 

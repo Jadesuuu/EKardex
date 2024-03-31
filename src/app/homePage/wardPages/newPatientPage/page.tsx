@@ -263,14 +263,13 @@ const NewPatientPage: React.FC = () => {
         {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime'},
     ];
   return (
+    <Suspense fallback={<div>Loading ward data...</div>}>
     <div className={Styles.NewPatient}>
         <div className={Styles.formPage}>
             <div className={Styles.wardHeader}>
                 <IconButton onClick={handleHome} sx={{paddingLeft: '1.5vw'}}>
                     <HouseIcon sx={{background: '#203162', color: 'white', borderRadius: 35, padding: 0.36, fontSize: '35px'}}/>
-                    <Suspense fallback={<div>Loading ward data...</div>}>
                     <Typography variant='h4' sx={{color: '#203162', fontWeight: 'bold', paddingLeft: '1vw'}}>{ward}</Typography>
-                    </Suspense>
                 </IconButton>
             <div className={Styles.iconAndName}>
                 <IconButton sx={{color: '#ABD7FF', marginTop: '-8vh', marginLeft:'49.2vw'}}>
@@ -318,6 +317,7 @@ const NewPatientPage: React.FC = () => {
             </div>
         </div>
     </div>
+    </Suspense>
   )
 }
 

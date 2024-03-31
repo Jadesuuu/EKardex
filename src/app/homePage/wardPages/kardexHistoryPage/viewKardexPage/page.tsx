@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import Styles from './page.module.css'
 import { IconButton, Typography, Button, Box, TextField, InputLabel, Select, MenuItem, FormControl, Grid } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -264,6 +264,7 @@ const ViewKardexPage: React.FC = () => {
     }},
     ];
   return (
+    <Suspense fallback={<div>Loading ward data...</div>}>
     <div className={Styles.NewPatient}>
         <div className={Styles.formPage}>
             <div className={Styles.wardHeader}>
@@ -321,6 +322,7 @@ const ViewKardexPage: React.FC = () => {
             </div>
         </div>
     </div>
+    </Suspense>
   )
 }
 
