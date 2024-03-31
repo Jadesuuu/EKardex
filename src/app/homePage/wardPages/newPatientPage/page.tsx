@@ -263,7 +263,6 @@ const NewPatientPage: React.FC = () => {
         {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime'},
     ];
   return (
-    <Suspense fallback={<div>Loading ward data...</div>}>
     <div className={Styles.NewPatient}>
         <div className={Styles.formPage}>
             <div className={Styles.wardHeader}>
@@ -317,8 +316,9 @@ const NewPatientPage: React.FC = () => {
             </div>
         </div>
     </div>
-    </Suspense>
   )
 }
 
-export default NewPatientPage
+const PageWrapper = () => <Suspense fallback={<div>Loading ward data...</div>}><NewPatientPage /></Suspense>
+
+export default PageWrapper

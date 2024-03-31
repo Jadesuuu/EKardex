@@ -26,9 +26,13 @@ const WardPage: React.FC = () => {
     const [patients, setPatients] = useState<Patient[]>([]);
     const [selectedRows, setSelectedRows] = useState<Patient[]>([]);
     const [isLoading, setIsLoading] = useState(true)
+    const [ward, setWard] = useState<string | null>(null)
     const router = useRouter();
     const searchParams = useSearchParams();
-    const ward = searchParams.get('ward');
+
+    useEffect(() => { 
+      setWard(searchParams.get('ward')) 
+    }, [searchParams])
 
     useEffect(() => {
       const fetchData = async () => {
@@ -141,4 +145,6 @@ const WardPage: React.FC = () => {
   )
 }
 
-export default WardPage
+const PageWrapper = () => <Suspense fallback={<div>Loading ward data...</div>}><WardPage /></Suspense>
+
+export default PageWrapper

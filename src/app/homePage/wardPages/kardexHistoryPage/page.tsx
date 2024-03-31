@@ -82,7 +82,6 @@ const KardexHistoryPage: React.FC = () => {
     };
 
   return (
-    <Suspense fallback={<div>Loading ward data...</div>}>
     <div className={Styles.WardPage}>
         <div className={Styles.wardHeader}>
             <IconButton onClick={handleHome} disabled={isLoading}>
@@ -154,8 +153,9 @@ const KardexHistoryPage: React.FC = () => {
           </Box>
         </div>
     </div>
-    </Suspense>
   )
 }
 
-export default KardexHistoryPage
+const PageWrapper = () => <Suspense fallback={<div>Loading ward data...</div>}><KardexHistoryPage /></Suspense>
+
+export default PageWrapper

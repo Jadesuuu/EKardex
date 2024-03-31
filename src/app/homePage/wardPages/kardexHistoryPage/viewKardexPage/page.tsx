@@ -264,7 +264,6 @@ const ViewKardexPage: React.FC = () => {
     }},
     ];
   return (
-    <Suspense fallback={<div>Loading ward data...</div>}>
     <div className={Styles.NewPatient}>
         <div className={Styles.formPage}>
             <div className={Styles.wardHeader}>
@@ -322,8 +321,9 @@ const ViewKardexPage: React.FC = () => {
             </div>
         </div>
     </div>
-    </Suspense>
   )
 }
 
-export default ViewKardexPage
+const PageWrapper = () => <Suspense fallback={<div>Loading ward data...</div>}><ViewKardexPage /></Suspense>
+
+export default PageWrapper

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import Styles from './page.module.css';
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -49,10 +49,10 @@ const HomePage: React.FC = () => {
     setWardsDropDown(false)
   };
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     setIsLogoutLoading(true)
     handleClose();
-    await router.push('/'); 
+    router.push('/'); 
     setIsLogoutLoading(false)
   };
 
@@ -105,7 +105,7 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <>
+    <Suspense>
       <div>
         {isLogoutLoading && <CircularProgress />}
       </div>
@@ -216,7 +216,7 @@ const HomePage: React.FC = () => {
           </div>
         </div>
     </div>
-    </>
+    </Suspense>
   )
 }
 
