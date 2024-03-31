@@ -49,7 +49,7 @@ export interface PatientRes {
 
 export async function page(): Promise<PatientRes> {
   console.log(__dirname)
-  const file = await fs.readFile(`${process.env.NEXT_PUBLIC_DB_DIR}`, 'utf-8');
+  const file = await fs.readFile(`${process.env.DB_DIR}`, 'utf-8');
   const data: Promise<PatientRes> = JSON.parse(file);
   return data
 }
@@ -63,7 +63,7 @@ export async function createPatient(newPatient: Patient) {
 
 export async function setData(data: Patient[]) {
   const jsonString = JSON.stringify({ patients: data })
-  await fs.writeFile(`${process.env.NEXT_PUBLIC_DB_DIR}`, jsonString)
+  await fs.writeFile(`${process.env.DB_DIR}`, jsonString)
 }
 
 export async function deleteRow(id: string) {
