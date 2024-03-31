@@ -46,7 +46,7 @@ export interface PatientRes {
 }
 
 export async function page(): Promise<PatientRes> {
-  const file = await fs.readFile(__dirname + '/public/patient.json', 'utf-8');
+  const file = await fs.readFile('./public/patient.json', 'utf-8'); //./public/patient.json', 'utf-8'
   const data: Promise<PatientRes> = JSON.parse(file);
   return data
 }
