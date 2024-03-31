@@ -21,8 +21,6 @@ const ViewKardexPage: React.FC = () => {
     const fileVersion = searchParams.get('fileVersion');
     const patientNumber = searchParams.get('patientNumber');
     const id = searchParams.get('id');
-    ward?.toString()
-    patientNumber?.toString()
 
     interface SubTableDefaultProps {
         id: string

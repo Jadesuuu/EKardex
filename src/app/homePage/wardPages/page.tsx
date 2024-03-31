@@ -25,7 +25,6 @@ const columns = [
 const WardPage: React.FC = () => {
     const [patients, setPatients] = useState<Patient[]>([]);
     const [selectedRows, setSelectedRows] = useState<Patient[]>([]);
-    const [isLoading, setIsLoading] = useState(true)
     const [ward, setWard] = useState<string | null>(null)
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -40,8 +39,6 @@ const WardPage: React.FC = () => {
           const res = await PatientData();
           const filteredPatients = res.patients.filter((patient) => patient.ward === ward && patient.fileVersion === 1);
           setPatients(filteredPatients);
-          setIsLoading(false);
-          console.log(filteredPatients);
         } catch (error) {
           console.error("error fetching data", error);
         }
@@ -72,7 +69,7 @@ const WardPage: React.FC = () => {
       router.push('/homePage/wardPages/kardexHistoryPage')
     }
 
-    const handleRowDelete = async () => { //next time na to pota
+    const handleRowDelete = async () => { 
       if (!selectedRows.length) return; 
 
       const confirmed = window.confirm(`Are you sure you want to delete ${selectedRows.length} patient(s)?`);
@@ -90,13 +87,13 @@ const WardPage: React.FC = () => {
     <Suspense fallback={<div>Loading ward data...</div>}>
     <div className={Styles.WardPage}>
         <div className={Styles.wardHeader}>
-            <IconButton onClick={handleHome} disabled={isLoading}>
+            <IconButton onClick={handleHome} >
                 <HouseIcon sx={{background: '#203162', color: '#86C2F8', borderRadius: 35, padding: 0.36, fontSize: '50px'}}/>
                 
                 <Typography variant='h2' sx={{color: '#203162', fontWeight: 'bold', paddingLeft: '1vw'}}>{ward}</Typography>
             </IconButton>
             <div className={Styles.iconAndName}>
-                <IconButton sx={{color: '#ABD7FF', paddingTop: '3.5vh', marginLeft:'50.2vw'}} disabled={isLoading}>
+                <IconButton sx={{color: '#ABD7FF', paddingTop: '3.5vh', marginLeft:'50.2vw'}} >
                     <AccountCircleIcon sx={{color: '#203162', fontSize: '35px'}} />
                     <Typography variant='h5' sx={{color: '#203162', fontWeight: 'bold', paddingLeft: '0.2vw'}}>A2 Benner</Typography>
                 </IconButton>
@@ -117,8 +114,7 @@ const WardPage: React.FC = () => {
             width:'11.5vw',
             height:'5vh', 
             fontSize:'19px', 
-            marginLeft: '7.5vw',}}
-            disabled={isLoading}>
+            marginLeft: '7.5vw',}}>
             ADD NEW PATIENT
           </Button>
         </div>
