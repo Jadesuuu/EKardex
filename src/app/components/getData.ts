@@ -46,7 +46,7 @@ export interface PatientRes {
 }
 
 export async function page(): Promise<PatientRes> {
-  const file = await fs.readFile('./src/app/data/patient.json', 'utf-8');
+  const file = await fs.readFile('./public/patient.json', 'utf-8');
   const data: Promise<PatientRes> = JSON.parse(file);
   return data
 }
@@ -60,7 +60,7 @@ export async function createPatient(newPatient: Patient) {
 
 export async function setData(data: Patient[]) {
   const jsonString = JSON.stringify({ patients: data })
-  await fs.writeFile('./src/app/data/patient.json', jsonString)
+  await fs.writeFile('./public/patient.json', jsonString)
 }
 
 export async function deleteRow(id: string) {

@@ -111,7 +111,7 @@ const KardexHistoryPage: React.FC = () => {
             <Grid item xs={3}>
               <Typography variant='h4' sx={{color: 'white', fontWeight: 'bold'}}>{givenName} </Typography>
             </Grid>
-            <Grid item xs={1}>  
+            <Grid item xs={2}>  
               <Typography variant='h4' sx={{color: 'white', fontWeight: 'bold'}}>{middleName} </Typography>
             </Grid>
             <Grid item xs={1}>  
