@@ -48,45 +48,36 @@ export interface PatientRes {
 }
 
 export async function page(): Promise<PatientRes> {
-  console.log(__dirname)
-  const file = await fs.readFile(`${process.env.DB_DIR}`, 'utf-8');
-  const data: Promise<PatientRes> = JSON.parse(file);
-  return data
+  const result = await fetch(`${process.env.URL}api/data`)
+  const { response } = await result.json()
+  return response
 }
 
 export async function createPatient(newPatient: Patient) {
   newPatient.updated_by = 'A2 Benner'
-  const { patients } = await page()
-  patients.push(newPatient)
-  await setData(patients)
+  await setData([newPatient])
 }
 
 export async function setData(data: Patient[]) {
   const jsonString = JSON.stringify({ patients: data })
-  await fs.writeFile(`${process.env.DB_DIR}`, jsonString)
+  await fetch(`${process.env.URL}api/data/new`, {
+    method: 'post',
+    body: jsonString
+  })
 }
 
 export async function deleteRow(id: string) {
-  const data = await page()
-  const filteredData = data.patients.filter(p => p.id !== id)
-  await setData(filteredData)
+  await fetch(`${process.env.URL}api/data`, {
+    method: "delete",
+    body: JSON.stringify({ id })
+  })
 }
 
 export async function editPatient(id: string, updatedPatientData: Patient) {
-  const { patients } = await page();
-  const patientIndex = patients.findIndex((p) => p.id === id);
-
-  if (patientIndex === -1) {
-    throw new Error(`Patient with id ${id} not found`);
-  }
-
-  patients[patientIndex] = {
-    ...patients[patientIndex],
-    ...updatedPatientData,
-    updated_at: new Date(),
-  };
-
-  await setData(patients);
+  await fetch(`${process.env.URL}api/data/save`, {
+    method: "post",
+    body: JSON.stringify(updatedPatientData)
+  })
 }
 
 export async function duplicateRow(id: string) {
@@ -99,12 +90,11 @@ export async function duplicateRow(id: string) {
 
   const newPatient: Patient = {
     ...originalPatient, 
-    id:crypto.randomUUID(),
+    id: crypto.randomUUID(),
     fileVersion: originalPatient.fileVersion + nextId,
     updated_at: new Date(),
     updated_by: originalPatient.updated_by
   }
-
-    patients.push(newPatient);
-    await setData(patients)
+;
+    await createPatient(newPatient)
 }

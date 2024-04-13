@@ -34,7 +34,8 @@ const KardexHistoryPage: React.FC = () => {
       const fetchData = async () => {
         try {
           const res = await PatientData();
-          const filteredPatients = res.patients.filter((patient) => patient.patientNumber == patientNumber);
+          const filteredPatients = res.patients.filter((patient) => Number(patient.patientNumber) === Number(patientNumber));
+          console.log(filteredPatients)
           setPatients(filteredPatients);
           setIsLoading(false);
         } catch (error) {

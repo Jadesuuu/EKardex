@@ -161,7 +161,7 @@ const ViewKardexPage: React.FC = () => {
     ];
     const patientColumn2: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'religion', headerName: 'Religion', width: 80, editable: rowEditable},
-        {field: 'phic', headerName: 'PHIC', width: 80, editable: false, renderCell: RenderCheckBox},
+        {field: 'phic', headerName: 'PHIC', width: 80, editable: false, renderCell: RenderCheckBox}, // TOFIX
         {field: 'ward', headerName: 'Ward', width: 200, editable: false, type:'singleSelect', 
         valueOptions: ['Medical Ward', 'Surgical Ward', 'Pediatrics Ward', 'OB GYN Ward', 'CCU', 'MICU', 'PICU', 'NCCU', 'PRDL Ward']},
         {field: 'doctor', headerName: 'Doctor', width: 150, editable: rowEditable},
