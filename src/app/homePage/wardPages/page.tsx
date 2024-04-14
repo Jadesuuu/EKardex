@@ -120,8 +120,7 @@ const WardPage: React.FC = () => {
         <div className={Styles.table}>
           <Box sx={{ height: 650, width: '85.1vw', marginTop: '0.5%', background: 'white'}}>
             <DataGrid 
-              slots={{toolbar: GridToolbar, loadingOverlay: LinearProgress as GridSlots['loadingOverlay'], noRowsOverlay: LinearProgress as GridSlots['loadingOverlay']}} 
-              loading
+              slots={{toolbar: GridToolbar, noRowsOverlay: LinearProgress as GridSlots['loadingOverlay']}} 
               rows={patients} 
               columns={columns} 
               getRowId={(row) => row.id} 
