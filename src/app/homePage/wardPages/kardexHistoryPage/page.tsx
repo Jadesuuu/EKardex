@@ -1,13 +1,13 @@
 'use client'
 import React, { useEffect, useState, Suspense } from 'react'
 import Styles from './page.module.css'
-import { IconButton, Typography, Button, Box, Grid } from '@mui/material'
+import { IconButton, Typography, Button, Box, Grid, LinearProgress } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HouseIcon from '@mui/icons-material/House';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Divider from '@mui/material/Divider';
 import {page as PatientData } from '@/app/components/getData'
-import { DataGrid, GridToolbar, GridRowSelectionModel, GridColDef, GridActionsCellItem, GridRowParams, GridEventListener, useGridApiRef } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridRowSelectionModel, GridColDef, GridActionsCellItem, GridRowParams, GridEventListener, useGridApiRef, GridSlots } from '@mui/x-data-grid';
 import { deleteRow, duplicateRow } from '@/app/components/getData';
 import type {Patient as RowData} from '@/app/components/getData'
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -129,11 +129,12 @@ const KardexHistoryPage: React.FC = () => {
         <div className={Styles.table}>
           <Box sx={{ height: 650, width: '85.1vw', marginTop: '0.5%', background: 'white'}}>
             <DataGrid
+              slots={{toolbar: GridToolbar, loadingOverlay: LinearProgress as GridSlots['loadingOverlay']}} 
+              loading
               apiRef={dataGridRef}
               rows={patients} 
               columns={column2} 
               getRowId={(row) => row.id} 
-              slots={{toolbar: GridToolbar}} 
               slotProps={{toolbar: {showQuickFilter: true}}}
               sx={{
                 '& .MuiDataGrid-columnHeader': {
