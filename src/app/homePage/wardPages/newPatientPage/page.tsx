@@ -184,16 +184,14 @@ const NewPatientPage: React.FC = () => {
 
     const handleProcessRowUpdate = (updatedRow: RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps) => {
         
-        if ("patientNumber" in updatedRow || "ward" in updatedRow) {
-            alert('Patient Number and Ward cannot be empty')
+        if(patientData[0].patientNumber.trim() === '' || patientData[0].ward.trim() === '') {
+            alert('Patient number and Ward cannot be empty!')
             return updatedRow;
-        }
-        if("patientNumber" in updatedRow) {
-            alert('Patient Number cannot be empty')
+        } else if (patientData[0].patientNumber.trim() === '') {
+            alert('Patient number cannot be empty!')
             return updatedRow;
-        }
-        if("ward" in updatedRow) {
-            alert('Ward cannot be empty')
+        } else if (patientData[0].ward.trim() === '') {
+            alert('Ward cannot be empty!')
             return updatedRow;
         }
 

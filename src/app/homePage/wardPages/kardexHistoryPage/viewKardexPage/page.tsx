@@ -111,6 +111,17 @@ const ViewKardexPage: React.FC = () => {
     }
 
     const handleProcessRowUpdate = (updatedRow: RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps) => {
+        if(patientData[0].patientNumber.trim() === '' || patientData[0].ward.trim() === '') {
+            alert('Patient number and Ward cannot be empty!')
+            return updatedRow;
+        } else if (patientData[0].patientNumber.trim() === '') {
+            alert('Patient number cannot be empty!')
+            return updatedRow;
+        } else if (patientData[0].ward.trim() === '') {
+            alert('Ward cannot be empty!')
+            return updatedRow;
+        }
+        
         console.log(updatedRow)
         if ("diagnosticTest" in updatedRow) {
             setPatientData([{ ...patientData[0], diagnosticTests: patientData[0].diagnosticTests.map(dt => dt.id === updatedRow.id ? updatedRow : dt)}])
