@@ -183,17 +183,6 @@ const NewPatientPage: React.FC = () => {
     }
 
     const handleProcessRowUpdate = (updatedRow: RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps) => {
-        
-        if(patientData[0].patientNumber.trim() === '' || patientData[0].ward.trim() === '') {
-            alert('Patient number and Ward cannot be empty!')
-            return updatedRow;
-        } else if (patientData[0].patientNumber.trim() === '') {
-            alert('Patient number cannot be empty!')
-            return updatedRow;
-        } else if (patientData[0].ward.trim() === '') {
-            alert('Ward cannot be empty!')
-            return updatedRow;
-        }
 
         console.log(updatedRow)
         if ("diagnosticTest" in updatedRow) {
@@ -217,63 +206,63 @@ const NewPatientPage: React.FC = () => {
     }
 
     const patientColumn1: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
-        {field: 'patientNumber', headerName: 'Patient #', width: 85, editable: rowEditable, type: "number"},
-        {field: 'roomNumber', headerName: 'Room #', width: 75, editable: rowEditable},
-        {field: 'lastName', headerName: 'Last Name', width: 100, editable: rowEditable},
-        {field: 'givenName', headerName: 'Given Name', width: 210, editable: rowEditable},
-        {field: 'middleName', headerName: 'Middle Name', width: 110, editable: rowEditable},
-        {field: 'age', headerName: 'Age', width: 70, editable: rowEditable, type: 'number'},
-        {field: 'sex', headerName: 'Sex', width: 80, editable: rowEditable, type: 'singleSelect', valueOptions: ['F', 'M']}, 
-        {field: 'datetime_admitted', headerName: 'Date/Time Admitted', width: 190, editable: rowEditable, type: 'dateTime' },
-        {field: 'dateOfBirth', headerName: 'Date of Birth', width: 130, editable: rowEditable, type: 'date' }
+        {field: 'patientNumber', width: 85, editable: rowEditable, type: "number", renderHeader: () => (<strong>Patient #</strong>)},
+        {field: 'roomNumber', renderHeader: () => (<strong>Room #</strong>), width: 75, editable: rowEditable},
+        {field: 'lastName', renderHeader: () => (<strong>Last Name</strong>), width: 100, editable: rowEditable},
+        {field: 'givenName', renderHeader: () => (<strong>Given Name</strong>), width: 210, editable: rowEditable},
+        {field: 'middleName', renderHeader: () => (<strong>Middle Name</strong>), width: 110, editable: rowEditable},
+        {field: 'age', renderHeader: () => (<strong>Age</strong>), width: 70, editable: rowEditable, type: 'number'},
+        {field: 'sex', renderHeader: () => (<strong>Sex</strong>), editable: rowEditable, type: 'singleSelect', valueOptions: ['F', 'M']}, 
+        {field: 'datetime_admitted', renderHeader: () => (<strong>Date/Time Admitted</strong>), width: 190, editable: rowEditable, type: 'dateTime' },
+        {field: 'dateOfBirth', renderHeader: () => (<strong>Date of Birth</strong>), width: 130, editable: rowEditable, type: 'date' }
     ];
     const patientColumn2: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
-        {field: 'religion', headerName: 'Religion', width: 80, editable: rowEditable},
-        {field: 'phic', headerName: 'PHIC', width: 80, editable: false, renderCell: RenderCheckBox},
-        {field: 'ward', headerName: 'Ward', width: 200, editable: rowEditable, type:'singleSelect', 
+        {field: 'religion', renderHeader: () => (<strong>Religion</strong>), width: 80, editable: rowEditable},
+        {field: 'phic', renderHeader: () => (<strong>PHIC</strong>), width: 80, editable: false, renderCell: RenderCheckBox},
+        {field: 'ward', renderHeader: () => (<strong>Ward</strong>), width: 200, editable: rowEditable, type:'singleSelect', 
         valueOptions: ['Medical Ward', 'Surgical Ward', 'Pediatrics Ward', 'OB GYN Ward', 'CCU', 'MICU', 'PICU', 'NCCU', 'PRDL Ward']},
-        {field: 'doctor', headerName: 'Doctor', width: 150, editable: rowEditable},
-        {field: 'referral', headerName: 'Referral', width: 258, editable: rowEditable},
-        {field: 'others', headerName: 'Others', width: 295, editable: rowEditable},
+        {field: 'doctor', renderHeader: () => (<strong>Doctor</strong>), width: 150, editable: rowEditable},
+        {field: 'referral', renderHeader: () => (<strong>Referral</strong>), width: 258, editable: rowEditable},
+        {field: 'others', renderHeader: () => (<strong>Others</strong>), width: 295, editable: rowEditable},
     ];  
     const patientColumn3: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
-        {field: 'chiefComplaint', headerName: 'Chief Complaint', width: 360, editable: rowEditable},
-        {field: 'diagnosis', headerName: 'Impression/Diagnosis', width: 355, editable: rowEditable},
-        {field: 'operation', headerName: 'Operation/Performed Date', width: 355, editable: rowEditable},
+        {field: 'chiefComplaint', renderHeader: () => (<strong>Chief Complaint</strong>), width: 360, editable: rowEditable},
+        {field: 'diagnosis', renderHeader: () => (<strong>Impression/Diagnosis</strong>), width: 355, editable: rowEditable},
+        {field: 'operation', renderHeader: () => (<strong>Operation/Performed Date</strong>), width: 355, editable: rowEditable},
     ];
     const patientColumn4: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
-        {field: 'diet', headerName: 'Diet', width: 200, editable: rowEditable},
-        {field: 'activity', headerName: 'Activity', width: 200, editable: rowEditable},
-        {field: 'allergies', headerName: 'Allergies', width: 200, editable: rowEditable},
-        {field: 'weightAndHeight', headerName: 'Weight & Height', width: 200, editable: rowEditable},
-        {field: 'bloodType', headerName: 'Blood Type', width: 200, editable: rowEditable, type:'singleSelect', 
+        {field: 'diet', renderHeader: () => (<strong>Diet</strong>), width: 200, editable: rowEditable},
+        {field: 'activity', renderHeader: () => (<strong>Activity</strong>), width: 200, editable: rowEditable},
+        {field: 'allergies', renderHeader: () => (<strong>Allergies</strong>), width: 200, editable: rowEditable},
+        {field: 'weightAndHeight', renderHeader: () => (<strong>Weight & Height</strong>), width: 200, editable: rowEditable},
+        {field: 'bloodType', renderHeader: () => (<strong>Blood Type</strong>), width: 200, editable: rowEditable, type:'singleSelect', 
         valueOptions:['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-' ]}
     ];
     const patientColumn5: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
-        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'diagnosticTest', headerName: 'Diagnostic Test', width: 310, editable: rowEditable, type: 'string'},
-        {field: 'date_done', headerName: 'Date done', width: 100, editable: rowEditable, type:'date'},
+        {field: 'date', renderHeader: () => (<strong>Date</strong>), width: 100, editable: rowEditable, type: 'date'},
+        {field: 'diagnosticTest', renderHeader: () => (<strong>Diagnostic Test</strong>), width: 310, editable: rowEditable, type: 'string'},
+        {field: 'date_done', renderHeader: () => (<strong>Date done</strong>), width: 100, editable: rowEditable, type:'date'},
     ];
     const patientColumn6: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
-        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'ivfbtic', headerName: 'IVF/BT/INCORPORATED MEDS', width: 240, editable: rowEditable},
-        {field: 'time_hooked', headerName: 'Time hooked', width: 180, editable: rowEditable, type:'dateTime'},
-        {field: 'endorse', headerName: 'To Endorse, VS', width: 150, editable: rowEditable}
+        {field: 'date', renderHeader: () => (<strong>Date</strong>), width: 100, editable: rowEditable, type: 'date'},
+        {field: 'ivfbtic', renderHeader: () => (<strong>IVF/BT/INCORPORATED MEDS</strong>), width: 240, editable: rowEditable},
+        {field: 'time_hooked', renderHeader: () => (<strong>Time Hooked</strong>), width: 180, editable: rowEditable, type:'dateTime'},
+        {field: 'endorse', renderHeader: () => (<strong>To Endorse, VS</strong>), width: 150, editable: rowEditable}
     ];
     const patientColumn7: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
-        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'mainMedication', headerName: 'Main Medication', width: 310, editable: rowEditable},
-        {field: 'time', headerName: 'Time', width: 100, editable: rowEditable},
+        {field: 'date', renderHeader: () => (<strong>Date</strong>), width: 100, editable: rowEditable, type: 'date'},
+        {field: 'mainMedication', renderHeader: () => (<strong>Main Medication</strong>), width: 310, editable: rowEditable},
+        {field: 'time', renderHeader: () => (<strong>Time</strong>), width: 100, editable: rowEditable},
     ];
     const patientColumn8: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
-        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'prnMedication', headerName: 'PRN Medication', width: 240, editable: rowEditable},
-        {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime'},
+        {field: 'date', renderHeader: () => (<strong>Date</strong>), width: 100, editable: rowEditable, type: 'date'},
+        {field: 'prnMedication', renderHeader: () => (<strong>PRN Medication</strong>), width: 240, editable: rowEditable},
+        {field: 'time', renderHeader: () => (<strong>Time</strong>), width: 180, editable: rowEditable, type:'dateTime'},
     ];
     const patientColumn9: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
-        {field: 'date', headerName: 'Date', width: 100, editable: rowEditable, type: 'date'},
-        {field: 'treatment', headerName: 'Treatments', width: 237, editable: rowEditable},
-        {field: 'time', headerName: 'Time', width: 180, editable: rowEditable, type:'dateTime'},
+        {field: 'date', renderHeader: () => (<strong>Date</strong>), width: 100, editable: rowEditable, type: 'date'},
+        {field: 'treatment', renderHeader: () => (<strong>Treatments</strong>), width: 237, editable: rowEditable},
+        {field: 'time', renderHeader: () => (<strong>Time</strong>), width: 180, editable: rowEditable, type:'dateTime'},
     ];
   return (
     <div className={Styles.NewPatient}>
@@ -294,7 +283,7 @@ const NewPatientPage: React.FC = () => {
             </div>
         </div>
             <div style={{marginTop: '13vh', marginBottom: '0.5vh', display:'flex', justifyContent: 'flex-end', paddingRight: '1.4vw'}}>
-                <Button variant='contained' sx={{borderRadius: 35, fontWeight: 'bold', background: '#203162'}} onClick={(e) => (async() => handleOnFormSubmit(e))()}>Create Patient</Button>
+                <Button variant='contained' sx={{borderRadius: 35, fontWeight: 'bold', background: '#203162', '& .MuiDataGrid-columnHeaderTitle': { fontWeight: 'bold' }}} onClick={(e) => (async() => handleOnFormSubmit(e))()}>Create Patient</Button>
             </div>
             <div style={{ height: 110, width: '98%', paddingLeft: '1.4vw', marginBottom: '0.5vh'}}>
                 <DataGrid columns={patientColumn1} rows={patientData as RowData[]} processRowUpdate={handleProcessRowUpdate} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{background: 'white'}} />
@@ -324,7 +313,7 @@ const NewPatientPage: React.FC = () => {
                     </Grid>
                 </Grid>
             </div>
-            <div style={{ height: 1203, width: '89.9vw', paddingLeft: '30.4vw', paddingTop: '73.37vh', marginBottom: '0.5vh'}}>
+            <div style={{ height: 1203, width: '89.9vw', paddingLeft: '30.4vw', paddingTop: '72.67vh', marginBottom: '0.5vh'}}>
                 <DataGrid columns={patientColumn9} rows={patientData[0].treatments as TreatmentsProps[]} processRowUpdate={handleProcessRowUpdate} hideFooter disableColumnSorting disableColumnMenu getRowId={(row) => row.id.toString()} sx={{width: '47.75%', background: 'white'}} />
             </div>
         </div>

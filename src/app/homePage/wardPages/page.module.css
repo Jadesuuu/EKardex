@@ -1,13 +1,12 @@
 .WardPage {
     background-color: #86C2F8;
+    padding-top: 7.7vh;
     width: 100vw;
     height: 100vh;
 }
 .wardHeader {
-    padding-top: 7vh;
-    padding-left: 7vw;
-    display: flex;
-    align-items: center;
+    margin-top: 17vh;
+    margin-left: 16vw;
 }
 .divider {
     display: flex;
@@ -17,7 +16,6 @@
     margin-bottom: 1.8vh;
 }
 .wardContent {
-    margin-top: '10vh';
     display: flex;
     align-items: center;
 }

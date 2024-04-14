@@ -2,7 +2,7 @@
 import { Suspense } from 'react';
 import React, { useEffect, useState } from 'react'
 import Styles from './page.module.css'
-import { IconButton, Typography, Button, Box, LinearProgress } from '@mui/material'
+import { IconButton, Typography, Button, Box, LinearProgress, Grid } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HouseIcon from '@mui/icons-material/House';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -87,16 +87,20 @@ const WardPage: React.FC = () => {
     <Suspense fallback={<div>Loading ward data...</div>}>
     <div className={Styles.WardPage}>
         <div className={Styles.wardHeader}>
+          <Grid container spacing={20}>
+            <Grid xs={9.87}>
             <IconButton onClick={handleHome} >
                 <HouseIcon sx={{background: '#203162', color: '#86C2F8', borderRadius: 35, padding: 0.36, fontSize: '50px'}}/>
                 <Typography variant='h2' sx={{color: '#203162', fontWeight: 'bold', paddingLeft: '1vw'}}>{ward}</Typography>
             </IconButton>
-            <div className={Styles.iconAndName}>
-                <IconButton sx={{color: '#ABD7FF', paddingTop: '3.5vh', marginLeft:'50.2vw'}} >
+            </Grid>
+            <Grid xs={2}>
+                <IconButton sx={{color: '#ABD7FF', paddingTop: '3.5vh'}} >
                     <AccountCircleIcon sx={{color: '#203162', fontSize: '35px'}} />
                     <Typography variant='h5' sx={{color: '#203162', fontWeight: 'bold', paddingLeft: '0.2vw'}}>A2 Benner</Typography>
                 </IconButton>
-            </div>
+            </Grid>
+            </Grid>
         </div>
         <div className={Styles.divider}>
             <Divider variant="middle" sx={{width: '85vw', background: 'white', height: '2px'}}/>
