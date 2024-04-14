@@ -106,6 +106,9 @@ const ViewKardexPage: React.FC = () => {
     };
 
     const handleOnFormSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        if(patientData[0].patientNumber.trim() === '') {
+            alert('Patient Number cannot be empty!')
+        }
         await editPatient(patientData[0].id, patientData[0]);
         setRowEditable(false)
     }
