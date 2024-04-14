@@ -176,12 +176,27 @@ const NewPatientPage: React.FC = () => {
     const [patientData, setPatientData] = useState<GridRowsProp<RowData>>(initialRows);
 
     const handleOnFormSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+
         e.preventDefault()
         await createPatient(patientData[0])
         router.push(`/homePage/wardPages?ward=${ward}`);
     }
 
     const handleProcessRowUpdate = (updatedRow: RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps) => {
+        
+        if ("patientNumber" in updatedRow || "ward" in updatedRow) {
+            alert('Patient Number and Ward cannot be empty')
+            return updatedRow;
+        }
+        if("patientNumber" in updatedRow) {
+            alert('Patient Number cannot be empty')
+            return updatedRow;
+        }
+        if("ward" in updatedRow) {
+            alert('Ward cannot be empty')
+            return updatedRow;
+        }
+
         console.log(updatedRow)
         if ("diagnosticTest" in updatedRow) {
             setPatientData([{ ...patientData[0], diagnosticTests: patientData[0].diagnosticTests.map(dt => dt.id === updatedRow.id ? updatedRow : dt)}])
