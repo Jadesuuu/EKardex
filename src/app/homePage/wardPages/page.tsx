@@ -2,14 +2,14 @@
 import { Suspense } from 'react';
 import React, { useEffect, useState } from 'react'
 import Styles from './page.module.css'
-import { IconButton, Typography, Button, Box } from '@mui/material'
+import { IconButton, Typography, Button, Box, LinearProgress } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HouseIcon from '@mui/icons-material/House';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Divider from '@mui/material/Divider';
 import {page as PatientData } from '@/app/components/getData'
 import type {Patient} from '@/app/components/getData'
-import { DataGrid, GridToolbar, GridRowSelectionModel, GridEventListener } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridRowSelectionModel, GridEventListener, GridSlots } from '@mui/x-data-grid';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const columns = [
@@ -89,7 +89,6 @@ const WardPage: React.FC = () => {
         <div className={Styles.wardHeader}>
             <IconButton onClick={handleHome} >
                 <HouseIcon sx={{background: '#203162', color: '#86C2F8', borderRadius: 35, padding: 0.36, fontSize: '50px'}}/>
-                
                 <Typography variant='h2' sx={{color: '#203162', fontWeight: 'bold', paddingLeft: '1vw'}}>{ward}</Typography>
             </IconButton>
             <div className={Styles.iconAndName}>
@@ -121,10 +120,11 @@ const WardPage: React.FC = () => {
         <div className={Styles.table}>
           <Box sx={{ height: 650, width: '85.1vw', marginTop: '0.5%', background: 'white'}}>
             <DataGrid 
+              slots={{toolbar: GridToolbar, loadingOverlay: LinearProgress as GridSlots['loadingOverlay'], noRowsOverlay: LinearProgress as GridSlots['loadingOverlay']}} 
+              loading
               rows={patients} 
               columns={columns} 
               getRowId={(row) => row.id} 
-              slots={{toolbar: GridToolbar}} 
               slotProps={{toolbar: {showQuickFilter: true}}}
               sx={{
                 '& .MuiDataGrid-columnHeader': {
