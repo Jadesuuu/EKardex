@@ -260,7 +260,7 @@ const NewPatientPage: React.FC = () => {
     ];
     const patientColumn9: GridColDef<RowData | DiagnosticTestsProps | IFBTIProps | MainMedicationsProps | PRNMedicationsProps | TreatmentsProps>[] = [
         {field: 'date', renderHeader: () => (<strong>Date</strong>), width: 100, editable: rowEditable, type: 'date'},
-        {field: 'treatment', renderHeader: () => (<strong>Treatments</strong>), width: 237, editable: rowEditable},
+        {field: 'treatment', renderHeader: () => (<strong>Treatments</strong>), width: 235, editable: rowEditable},
         {field: 'time', renderHeader: () => (<strong>Time</strong>), width: 180, editable: rowEditable, type:'dateTime'},
     ];
   return (
