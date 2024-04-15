@@ -186,7 +186,6 @@ const ViewKardexPage: React.FC = () => {
         {field: 'date', renderHeader: () => (<strong>Date</strong>), width: 100, editable: rowEditable, type: 'date', valueFormatter: (value) => {if(value === '') {
             return '';
         } else {
-            const date = new Date(value);
             return formatDate(value)
         }
     }},
@@ -194,7 +193,6 @@ const ViewKardexPage: React.FC = () => {
         {field: 'date_done', renderHeader: () => (<strong>Date done</strong>), width: 100, editable: rowEditable, type:'date', valueFormatter: (value) => {if(value === '') {
             return '';
         } else {
-            const date = new Date(value);
             return formatDate(value)
         }
     }},
@@ -203,7 +201,6 @@ const ViewKardexPage: React.FC = () => {
         {field: 'date', renderHeader: () => (<strong>Date</strong>), width: 100, editable: rowEditable, type: 'date', valueFormatter: (value) => {if(value === '') {
             return '';
         } else {
-            const date = new Date(value);
             return formatDate(value)
         }
     }},
@@ -211,7 +208,6 @@ const ViewKardexPage: React.FC = () => {
         {field: 'time_hooked', renderHeader: () => (<strong>Time Hooked</strong>), width: 180, editable: rowEditable, type:'dateTime', valueFormatter: (value) => {if(value === '') {
             return '';
         } else {
-            const date = new Date(value);
             return formatDateTime(value)
         }
     }},
@@ -221,7 +217,6 @@ const ViewKardexPage: React.FC = () => {
         {field: 'date', renderHeader: () => (<strong>Date</strong>), width: 100, editable: rowEditable, type: 'date', valueFormatter: (value) => {if(value === '') {
             return '';
         } else {
-            const date = new Date(value);
             return formatDate(value)
         }
     }},
@@ -232,7 +227,6 @@ const ViewKardexPage: React.FC = () => {
         {field: 'date', renderHeader: () => (<strong>Date</strong>), width: 100, editable: rowEditable, type: 'date', valueFormatter: (value) => {if(value === '') {
             return '';
         } else {
-            const date = new Date(value);
             return formatDate(value)
         }
     }},
@@ -240,7 +234,6 @@ const ViewKardexPage: React.FC = () => {
         {field: 'time', renderHeader: () => (<strong>Time</strong>), width: 180, editable: rowEditable, type:'dateTime', valueFormatter: (value) => {if(value === '') {
             return '';
         } else {
-            const date = new Date(value);
             return formatDateTime(value)
         }
     }},
@@ -249,15 +242,13 @@ const ViewKardexPage: React.FC = () => {
         {field: 'date', renderHeader: () => (<strong>Date</strong>), width: 100, editable: rowEditable, type: 'date', valueFormatter: (value) => {if(value === '') {
             return '';
         } else {
-            const date = new Date(value);
             return formatDate(value)
         }
     }},
-        {field: 'treatment', renderHeader: () => (<strong>Treatments</strong>), width: 237, editable: rowEditable},
+        {field: 'treatments', renderHeader: () => (<strong>Treatments</strong>), width: 237, editable: rowEditable},
         {field: 'time', renderHeader: () => (<strong>Time</strong>), width: 180, editable: rowEditable, type:'dateTime', valueFormatter: (value) => {if(value === '') {
             return '';
         } else {
-            const date = new Date(value);
             return formatDateTime(value)
         }
     }},
