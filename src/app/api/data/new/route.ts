@@ -64,9 +64,9 @@ export async function POST(request: NextRequest) {
                 FROM json_populate_recordset(NULL::ivfbtmi, '${JSON.stringify(arrayObjectPayload.ivfluidbloodtransmedsincorporated)}');
 
                 INSERT INTO treatments (
-                    patientid, fileversion, treatments, date, time
+                    patientid, fileversion, treatment, date, time
                 ) 
-                SELECT patientid, fileversion, treatments, date, time
+                SELECT patientid, fileversion, treatment, date, time
                 FROM json_populate_recordset(NULL::treatments, '${JSON.stringify(arrayObjectPayload.treatments)}');
             END $$;
         `)

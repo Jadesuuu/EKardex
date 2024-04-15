@@ -40,7 +40,7 @@ export async function POST(request: Request) {
         const mainMedications = edit.mainMedications.map(mm => ({ id: mm.id, patientid: edit.id, fileversion: edit.fileVersion, mainmedication: mm.mainMedication, date: mm.date, time: mm.time }))
         const prnMedications = edit.prnMedications.map(pm => ({ id: pm.id, patientid: edit.id, fileversion: edit.fileVersion, prnmedication: pm.prnMedication, date: pm.date, time: pm.time }))
         const ivfbtmi = edit.ivFluidBloodTransMedsIncorporated.map(i => ({ id: i.id, patientid: edit.id, fileversion: edit.fileVersion, ivfbtic: i.ivfbtic, date: i.date, time_hooked: i.time_hooked, endorse: i.endorse }))
-        const treatments = edit.treatments.map(t => ({ id: t.id, patientid: edit.id, fileversion: edit.fileVersion, treatments: t.treatment, date: t.date, time: t.time }))
+        const treatments = edit.treatments.map(t => ({ id: t.id, patientid: edit.id, fileversion: edit.fileVersion, treatment: t.treatment, date: t.date, time: t.time }))
 
         console.log(diagnosticTests, mainMedications, prnMedications, ivfbtmi, treatments)
 
@@ -115,7 +115,7 @@ export async function POST(request: Request) {
                 UPDATE treatments
                 SET
                     fileversion = tu.fileversion,
-                    treatments = tu.treatments,
+                    treatment = tu.treatment,
                     date = tu.date,
                     time = tu.time
                 FROM (
