@@ -39,11 +39,11 @@ export async function GET(request: Request) {
                 others: row.others,
                 referral: row.referral,
                 dateOfBirth: row.dateofbirth,
-                diagnosticTests: dtRows.filter(dt => dt.fileversion === row.fileversion).map(dt => ({ id: dt.id, diagnosticTest: dt.diagnostictest, date: dt.date, date_done: dt.date_done })),
-                ivFluidBloodTransMedsIncorporated: iRows.filter(i => i.fileversion === row.fileversion).map(i => ({ id: i.id, ivfbtic: i.ivfbtic, date: i.date, time_hooked: i.time_hooked, endorse: i.endorse })),
-                mainMedications: mmRows.filter(mm => mm.fileversion === row.fileversion).map(mm => ({ id: mm.id, mainMedication: mm.mainmedication, date: mm.date, time: mm.time })),
-                prnMedications: pmRows.filter(pm => pm.fileversion === row.fileversion).map(pm => ({ id: pm.id, prnMedication: pm.prnmedication, date: pm.date, time: pm.time })),
-                treatments: tRows.filter(t => t.id === row.id).map(t => ({ id: t.id, treatment: t.treatment, date: t.date, time: t.time }))
+                diagnosticTests: dtRows.filter(dt => dt.fileversion === row.fileversion && dt.patientid === row.id).map(dt => ({ id: dt.id, diagnosticTest: dt.diagnostictest, date: dt.date, date_done: dt.date_done })),
+                ivFluidBloodTransMedsIncorporated: iRows.filter(i => i.fileversion === row.fileversion && i.patientid === row.id).map(i => ({ id: i.id, ivfbtic: i.ivfbtic, date: i.date, time_hooked: i.time_hooked, endorse: i.endorse })),
+                mainMedications: mmRows.filter(mm => mm.fileversion === row.fileversion && mm.patientid === row.id).map(mm => ({ id: mm.id, mainMedication: mm.mainmedication, date: mm.date, time: mm.time })),
+                prnMedications: pmRows.filter(pm => pm.fileversion === row.fileversion && pm.patientid === row.id).map(pm => ({ id: pm.id, prnMedication: pm.prnmedication, date: pm.date, time: pm.time })),
+                treatments: tRows.filter(t => t.id === row.id && t.patientid === row.id).map(t => ({ id: t.id, treatment: t.treatment, date: t.date, time: t.time }))
             }
             return patient
         })
