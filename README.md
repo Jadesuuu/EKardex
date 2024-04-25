@@ -18,6 +18,7 @@ EKardex replaces physical kardex cards with a digital interface, enhancing acces
 **Technologies Used** <br />
 • Next.js (React Framework) <br />
 • Typescript <br />
+• PostgreSQL <br />
 
 **Installation (local)** <br />
 1. Install Node.js https://nodejs.org/en/download <br /> 
